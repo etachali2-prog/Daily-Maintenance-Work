@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -7,9 +8,10 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-   content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>MELBA - Daily Maintenance Records</title>
+
 
 <style>
 
@@ -28,6 +30,7 @@ body {
     color: #222;
 }
 
+
 /* =========================================================
    MAIN CONTAINER
 ========================================================= */
@@ -37,6 +40,7 @@ body {
     max-width: 1600px;
     margin: 25px auto;
 }
+
 
 /* =========================================================
    HEADER
@@ -58,6 +62,7 @@ body {
     margin: 7px 0 0;
     font-size: 15px;
 }
+
 
 /* =========================================================
    CONTROLS
@@ -84,7 +89,13 @@ body {
     border: 1px solid #bbb;
     border-radius: 5px;
     font-size: 14px;
+    outline: none;
 }
+
+.search-box input:focus {
+    border-color: #1f4e78;
+}
+
 
 button {
     border: none;
@@ -94,6 +105,7 @@ button {
     font-weight: bold;
 }
 
+
 .refresh-btn {
     background: #198754;
     color: white;
@@ -102,6 +114,7 @@ button {
 .refresh-btn:hover {
     opacity: .85;
 }
+
 
 /* =========================================================
    TOTAL
@@ -116,7 +129,9 @@ button {
 
 #totalRecords {
     color: #1f4e78;
+    font-size: 18px;
 }
+
 
 /* =========================================================
    ERROR
@@ -129,7 +144,23 @@ button {
     padding: 15px;
     margin: 15px 0;
     border-radius: 5px;
+    font-weight: bold;
 }
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.success {
+    background: #d1e7dd;
+    color: #0f5132;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    display: none;
+}
+
 
 /* =========================================================
    TABLE
@@ -140,11 +171,13 @@ button {
     overflow-x: auto;
 }
 
+
 table {
     width: 100%;
     min-width: 1300px;
     border-collapse: collapse;
 }
+
 
 thead th {
     background: #1f4e78;
@@ -154,7 +187,9 @@ thead th {
     white-space: nowrap;
     position: sticky;
     top: 0;
+    z-index: 2;
 }
+
 
 tbody td {
     padding: 10px;
@@ -162,9 +197,11 @@ tbody td {
     vertical-align: top;
 }
 
+
 tbody tr:hover {
     background: #f3f7fa;
 }
+
 
 /* =========================================================
    STATUS
@@ -178,25 +215,30 @@ tbody tr:hover {
     font-weight: bold;
 }
 
+
 .status-pending {
     background: #fff3cd;
     color: #856404;
 }
+
 
 .status-completed {
     background: #d1e7dd;
     color: #0f5132;
 }
 
+
 .status-in-progress {
     background: #cff4fc;
     color: #055160;
 }
 
+
 .status-cancelled {
     background: #f8d7da;
     color: #842029;
 }
+
 
 /* =========================================================
    LOADING
@@ -209,11 +251,27 @@ tbody tr:hover {
     color: #555;
 }
 
+
 .no-data {
     text-align: center;
     padding: 35px;
     color: #777;
 }
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    border-radius: 0 0 8px 8px;
+}
+
 
 /* =========================================================
    MOBILE
@@ -234,17 +292,39 @@ tbody tr:hover {
         font-size: 20px;
     }
 
+    .header p {
+        font-size: 13px;
+    }
+
+    .controls {
+        padding: 10px;
+    }
+
+    .search-box {
+        min-width: 100%;
+    }
+
+    .refresh-btn {
+        width: 100%;
+    }
+
+    .total {
+        padding: 12px;
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-```
+
 <!-- =====================================================
      HEADER
 ====================================================== -->
@@ -256,7 +336,8 @@ tbody tr:hover {
     </h1>
 
     <p>
-        Daily Maintenance Records
+        Electrical & Mechanical Technical Department
+        — Daily Maintenance Records
     </p>
 
 </div>
@@ -273,10 +354,11 @@ tbody tr:hover {
         <input
             type="text"
             id="search"
-            placeholder="Search equipment, technician, work description..."
+            placeholder="Search equipment, technician, work type, description..."
         >
 
     </div>
+
 
     <button
         class="refresh-btn"
@@ -374,11 +456,26 @@ tbody tr:hover {
     </table>
 
 </div>
-```
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<div class="footer">
+
+    MELBA Printing & Publishing
+    — Technical Maintenance Management System
 
 </div>
 
+
+</div>
+
+
+
 <script>
+
 
 /* =========================================================
    GOOGLE SHEET CSV URL
@@ -387,15 +484,25 @@ tbody tr:hover {
 /*
    IMPORTANT:
 
-   This is your published Google Sheet.
+   Your Google Sheet must be published to the web.
 
-   We use CSV output instead of iframe.
+   File
+       ↓
+   Share
+       ↓
+   Publish to web
+       ↓
+   Select the correct sheet
+       ↓
+   Publish
 
-   DO NOT put <iframe> here.
+   The URL below is the CSV version.
+
+   DO NOT put an iframe here.
 */
 
 const API_URL =
-"<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSQdXkuYY9Tl-Jxf_xRJ1tnnSKNYY8AvmY_whn8zsLORjiOLJXipsxuLwFLkzLUUgrPLJGRB7LljUgv/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>";
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSQdXkuYY9Tl-Jxf_xRJ1tnnSKNYY8AvmY_whn8zsLORjiOLJXipsxuLwFLkzLUUgrPLJGRB7LljUgv/pub?gid=0&single=true&output=csv";
 
 
 /* =========================================================
@@ -412,13 +519,18 @@ let allData = [];
 async function loadData() {
 
     const tableBody =
-        document.getElementById("tableBody");
+        document.getElementById(
+            "tableBody"
+        );
 
     const errorBox =
-        document.getElementById("errorBox");
+        document.getElementById(
+            "errorBox"
+        );
 
 
-    errorBox.style.display = "none";
+    errorBox.style.display =
+        "none";
 
 
     tableBody.innerHTML = `
@@ -429,7 +541,7 @@ async function loadData() {
                 colspan="12"
                 class="loading">
 
-                Loading maintenance records...
+                ⏳ Loading maintenance records...
 
             </td>
 
@@ -442,7 +554,9 @@ async function loadData() {
 
         const response =
             await fetch(
-                API_URL + "&cache=" + Date.now()
+                API_URL +
+                "&cache=" +
+                Date.now()
             );
 
 
@@ -470,17 +584,24 @@ async function loadData() {
 
 
         allData =
-            csvToObjects(csvText);
+            csvToObjects(
+                csvText
+            );
 
 
-        displayData(allData);
+        displayData(
+            allData
+        );
 
     }
 
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Google Sheet Error:",
+            error
+        );
 
 
         errorBox.innerText =
@@ -500,7 +621,12 @@ async function loadData() {
                     colspan="12"
                     class="no-data">
 
-                    Unable to load maintenance records.
+                    ❌ Unable to load maintenance records.
+
+                    <br><br>
+
+                    Please check that the Google Sheet
+                    is published to the web.
 
                 </td>
 
@@ -511,7 +637,8 @@ async function loadData() {
 
         document.getElementById(
             "totalRecords"
-        ).innerText = "0";
+        ).innerText =
+            "0";
 
     }
 
@@ -536,13 +663,18 @@ function csvToObjects(csv) {
 
 
     const headers =
-        rows[0].map(function(header) {
+        rows[0].map(
+            function(header) {
 
-            return header
-                .trim()
-                .replace(/^"|"$/g, "");
+                return header
+                    .trim()
+                    .replace(
+                        /^"|"$/g,
+                        ""
+                    );
 
-        });
+            }
+        );
 
 
     const data = [];
@@ -572,7 +704,10 @@ function csvToObjects(csv) {
 
 
         headers.forEach(
-            function(header, index) {
+            function(
+                header,
+                index
+            ) {
 
                 obj[header] =
                     row[index] !== undefined
@@ -583,7 +718,9 @@ function csvToObjects(csv) {
         );
 
 
-        data.push(obj);
+        data.push(
+            obj
+        );
 
     }
 
@@ -605,7 +742,8 @@ function parseCSV(text) {
 
     let value = "";
 
-    let insideQuotes = false;
+    let insideQuotes =
+        false;
 
 
     for (
@@ -621,6 +759,10 @@ function parseCSV(text) {
             text[i + 1];
 
 
+        /*
+           Escaped double quote
+        */
+
         if (
             char === '"' &&
             insideQuotes &&
@@ -634,7 +776,13 @@ function parseCSV(text) {
         }
 
 
-        else if (char === '"') {
+        /*
+           Start / end quote
+        */
+
+        else if (
+            char === '"'
+        ) {
 
             insideQuotes =
                 !insideQuotes;
@@ -642,21 +790,33 @@ function parseCSV(text) {
         }
 
 
+        /*
+           Column separator
+        */
+
         else if (
             char === "," &&
             !insideQuotes
         ) {
 
-            row.push(value);
+            row.push(
+                value
+            );
 
             value = "";
 
         }
 
 
+        /*
+           New row
+        */
+
         else if (
-            (char === "\n" ||
-             char === "\r") &&
+            (
+                char === "\n" ||
+                char === "\r"
+            ) &&
             !insideQuotes
         ) {
 
@@ -670,9 +830,15 @@ function parseCSV(text) {
             }
 
 
-            row.push(value);
+            row.push(
+                value
+            );
 
-            rows.push(row);
+
+            rows.push(
+                row
+            );
+
 
             row = [];
 
@@ -690,14 +856,22 @@ function parseCSV(text) {
     }
 
 
+    /*
+       Last row
+    */
+
     if (
         value !== "" ||
         row.length > 0
     ) {
 
-        row.push(value);
+        row.push(
+            value
+        );
 
-        rows.push(row);
+        rows.push(
+            row
+        );
 
     }
 
@@ -725,7 +899,9 @@ function displayData(data) {
         data.length;
 
 
-    if (data.length === 0) {
+    if (
+        data.length === 0
+    ) {
 
         tableBody.innerHTML = `
 
@@ -748,24 +924,41 @@ function displayData(data) {
     }
 
 
-    tableBody.innerHTML = "";
+    tableBody.innerHTML =
+        "";
 
 
     data.forEach(
         function(row) {
 
 
+            /*
+               Read status
+            */
+
             const status =
                 row["Status"] ||
                 "Pending";
 
 
-            const statusClass =
-                getStatusClass(status);
+            /*
+               Status CSS
+            */
 
+            const statusClass =
+                getStatusClass(
+                    status
+                );
+
+
+            /*
+               Create row
+            */
 
             const tr =
-                document.createElement("tr");
+                document.createElement(
+                    "tr"
+                );
 
 
             tr.innerHTML = `
@@ -828,7 +1021,9 @@ function displayData(data) {
             `;
 
 
-            tableBody.appendChild(tr);
+            tableBody.appendChild(
+                tr
+            );
 
         }
     );
@@ -837,10 +1032,12 @@ function displayData(data) {
 
 
 /* =========================================================
-   STATUS
+   STATUS CLASS
 ========================================================= */
 
-function getStatusClass(status) {
+function getStatusClass(
+    status
+) {
 
     const value =
         String(status)
@@ -888,7 +1085,9 @@ function getStatusClass(status) {
 ========================================================= */
 
 document
-    .getElementById("search")
+    .getElementById(
+        "search"
+    )
     .addEventListener(
         "input",
         function() {
@@ -900,14 +1099,26 @@ document
                     .trim();
 
 
-            if (!keyword) {
+            /*
+               Show all records
+            */
 
-                displayData(allData);
+            if (
+                !keyword
+            ) {
+
+                displayData(
+                    allData
+                );
 
                 return;
 
             }
 
+
+            /*
+               Search every column
+            */
 
             const filtered =
                 allData.filter(
@@ -917,13 +1128,17 @@ document
                             .values(row)
                             .join(" ")
                             .toLowerCase()
-                            .includes(keyword);
+                            .includes(
+                                keyword
+                            );
 
                     }
                 );
 
 
-            displayData(filtered);
+            displayData(
+                filtered
+            );
 
         }
     );
@@ -976,12 +1191,14 @@ function safe(value) {
 
 
 /* =========================================================
-   START
+   START APPLICATION
 ========================================================= */
 
 loadData();
 
+
 </script>
+
 
 </body>
 
