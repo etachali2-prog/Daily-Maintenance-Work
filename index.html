@@ -7,12 +7,11 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+   content="width=device-width, initial-scale=1.0">
 
 <title>
 MELBA - Daily Maintenance Records
 </title>
-
 
 <style>
 
@@ -24,336 +23,199 @@ MELBA - Daily Maintenance Records
     box-sizing: border-box;
 }
 
-
 body {
-
     margin: 0;
-
     font-family: Arial, Helvetica, sans-serif;
-
     background: #f1f4f8;
-
     color: #222;
-
 }
-
 
 /* =========================================================
    MAIN CONTAINER
 ========================================================= */
 
 .container {
-
     width: 96%;
-
     max-width: 1600px;
-
     margin: 25px auto;
-
 }
-
 
 /* =========================================================
    HEADER
 ========================================================= */
 
 .header {
-
     background: #1f4e78;
-
     color: white;
-
     padding: 22px;
-
     border-radius: 8px 8px 0 0;
-
 }
-
 
 .header h1 {
-
     margin: 0;
-
     font-size: 25px;
-
 }
-
 
 .header p {
-
     margin: 7px 0 0;
-
     font-size: 15px;
-
 }
-
 
 /* =========================================================
    CONTROL AREA
 ========================================================= */
 
 .controls {
-
     background: white;
-
     padding: 15px;
-
     display: flex;
-
     gap: 10px;
-
     flex-wrap: wrap;
-
     align-items: center;
-
     border-bottom: 1px solid #ddd;
-
 }
-
 
 .search-box {
-
     flex: 1;
-
     min-width: 250px;
-
 }
-
 
 .search-box input {
-
     width: 100%;
-
     padding: 11px;
-
     border: 1px solid #bbb;
-
     border-radius: 5px;
-
     font-size: 14px;
-
 }
-
 
 button {
-
     border: none;
-
     border-radius: 5px;
-
     padding: 11px 18px;
-
     cursor: pointer;
-
     font-weight: bold;
-
 }
-
 
 .refresh-btn {
-
     background: #198754;
-
     color: white;
-
 }
-
 
 .refresh-btn:hover {
-
     opacity: .85;
-
 }
-
 
 /* =========================================================
    TOTAL
 ========================================================= */
 
 .total {
-
     background: white;
-
     padding: 15px;
-
     border-bottom: 1px solid #ddd;
-
     font-weight: bold;
-
 }
-
 
 #totalRecords {
-
     color: #1f4e78;
-
 }
-
 
 /* =========================================================
    ERROR
 ========================================================= */
 
 .error {
-
     display: none;
-
     background: #f8d7da;
-
     color: #842029;
-
     padding: 15px;
-
     margin: 15px 0;
-
     border-radius: 5px;
-
 }
-
 
 /* =========================================================
    TABLE
 ========================================================= */
 
 .table-container {
-
     background: white;
-
     overflow-x: auto;
-
 }
-
 
 table {
-
     width: 100%;
-
     min-width: 1300px;
-
     border-collapse: collapse;
-
 }
-
 
 thead th {
-
     background: #1f4e78;
-
     color: white;
-
     padding: 12px;
-
     text-align: left;
-
     white-space: nowrap;
-
     position: sticky;
-
     top: 0;
-
 }
-
 
 tbody td {
-
     padding: 10px;
-
     border-bottom: 1px solid #ddd;
-
     vertical-align: top;
-
 }
-
 
 tbody tr:hover {
-
     background: #f3f7fa;
-
 }
-
 
 /* =========================================================
    STATUS
 ========================================================= */
 
 .status {
-
     display: inline-block;
-
     padding: 5px 10px;
-
     border-radius: 15px;
-
     font-size: 12px;
-
     font-weight: bold;
-
 }
-
 
 .status-pending {
-
     background: #fff3cd;
-
     color: #856404;
-
 }
-
 
 .status-completed {
-
     background: #d1e7dd;
-
     color: #0f5132;
-
 }
-
 
 .status-in-progress {
-
     background: #cff4fc;
-
     color: #055160;
-
 }
-
 
 .status-cancelled {
-
     background: #f8d7da;
-
     color: #842029;
-
 }
-
 
 /* =========================================================
    LOADING
 ========================================================= */
 
 .loading {
-
     text-align: center;
-
     padding: 35px;
-
     font-weight: bold;
-
     color: #555;
-
 }
-
 
 .no-data {
-
     text-align: center;
-
     padding: 35px;
-
     color: #777;
-
 }
-
 
 /* =========================================================
    MOBILE
@@ -362,25 +224,16 @@ tbody tr:hover {
 @media(max-width: 700px) {
 
     .container {
-
         width: 100%;
-
         margin: 0;
-
     }
-
 
     .header {
-
         border-radius: 0;
-
     }
 
-
     .header h1 {
-
         font-size: 20px;
-
     }
 
 }
@@ -389,191 +242,164 @@ tbody tr:hover {
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
-
-    <div class="header">
-
-        <h1>
-            MELBA PRINTING & PUBLISHING
-        </h1>
-
-        <p>
-            Daily Maintenance Records
-        </p>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         CONTROLS
-    ====================================================== -->
-
-    <div class="controls">
-
-
-        <div class="search-box">
-
-            <input
-                type="text"
-                id="search"
-                placeholder="Search equipment, technician, work description..."
-            >
-
-        </div>
-
-
-        <button
-            class="refresh-btn"
-            onclick="loadData()">
-
-            🔄 Refresh
-
-        </button>
-
-
-    </div>
-
-
-
-    <!-- =====================================================
-         ERROR
-    ====================================================== -->
-
-    <div
-        id="errorBox"
-        class="error">
-    </div>
-
-
-
-    <!-- =====================================================
-         TOTAL RECORDS
-    ====================================================== -->
-
-    <div class="total">
-
-        Total Maintenance Records:
-
-        <span id="totalRecords">
-            0
-        </span>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         TABLE
-    ====================================================== -->
-
-    <div class="table-container">
-
-        <table>
-
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        ID
-                    </th>
-
-                    <th>
-                        Date
-                    </th>
-
-                    <th>
-                        Time
-                    </th>
-
-                    <th>
-                        Equipment ID
-                    </th>
-
-                    <th>
-                        Equipment Name
-                    </th>
-
-                    <th>
-                        Technician
-                    </th>
-
-                    <th>
-                        Work Type
-                    </th>
-
-                    <th>
-                        Priority
-                    </th>
-
-                    <th>
-                        Work Description
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                    <th>
-                        Remarks
-                    </th>
-
-                    <th>
-                        Saved At
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-
-            <tbody id="tableBody">
-
-                <tr>
-
-                    <td
-                        colspan="12"
-                        class="loading">
-
-                        Loading maintenance records...
-
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-
-        </table>
-
-    </div>
-
+```
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<div class="header">
+
+    <h1>
+        MELBA PRINTING & PUBLISHING
+    </h1>
+
+    <p>
+        Daily Maintenance Records
+    </p>
 
 </div>
 
 
+<!-- =====================================================
+     CONTROLS
+====================================================== -->
+
+<div class="controls">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search equipment, technician, work description..."
+        >
+
+    </div>
+
+    <button
+        class="refresh-btn"
+        onclick="loadData()">
+
+        🔄 Refresh
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     ERROR
+====================================================== -->
+
+<div
+    id="errorBox"
+    class="error">
+</div>
+
+
+<!-- =====================================================
+     TOTAL RECORDS
+====================================================== -->
+
+<div class="total">
+
+    Total Maintenance Records:
+
+    <span id="totalRecords">
+        0
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     TABLE
+====================================================== -->
+
+<div class="table-container">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Date</th>
+
+                <th>Time</th>
+
+                <th>Equipment ID</th>
+
+                <th>Equipment Name</th>
+
+                <th>Technician</th>
+
+                <th>Work Type</th>
+
+                <th>Priority</th>
+
+                <th>Work Description</th>
+
+                <th>Status</th>
+
+                <th>Remarks</th>
+
+                <th>Saved At</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="tableBody">
+
+            <tr>
+
+                <td
+                    colspan="12"
+                    class="loading">
+
+                    Loading maintenance records...
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+```
+
+</div>
 
 <script>
-
 
 /* =========================================================
    GOOGLE APPS SCRIPT WEB APP URL
 ========================================================= */
 
+/*
+   IMPORTANT:
+
+   Replace YOUR_SCRIPT_ID with the ID from your
+   Google Apps Script Web App.
+
+   Example:
+
+   https://script.google.com/macros/s/ABC123456789/exec
+
+   DO NOT use the Google Sheets /pubhtml URL.
+*/
+
 const API_URL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSQdXkuYY9Tl-Jxf_xRJ1tnnSKNYY8AvmY_whn8zsLORjiOLJXipsxuLwFLkzLUUgrPLJGRB7LljUgv/pubhtml?gid=0&single=true"></iframe>";
+    "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
 
 
 /* =========================================================
@@ -591,33 +417,25 @@ const TOKEN =
 let allData = [];
 
 
-
 /* =========================================================
    LOAD DATA
 ========================================================= */
 
 async function loadData() {
 
-
     const tableBody =
-        document.getElementById(
-            "tableBody"
-        );
-
+        document.getElementById("tableBody");
 
     const errorBox =
-        document.getElementById(
-            "errorBox"
-        );
+        document.getElementById("errorBox");
 
 
-    // Hide previous error
+    /* Hide previous error */
 
-    errorBox.style.display =
-        "none";
+    errorBox.style.display = "none";
 
 
-    // Show loading
+    /* Show loading */
 
     tableBody.innerHTML = `
 
@@ -638,6 +456,20 @@ async function loadData() {
 
     try {
 
+        /* =================================================
+           CHECK API URL
+        ================================================= */
+
+        if (
+            API_URL.includes("YOUR_SCRIPT_ID")
+        ) {
+
+            throw new Error(
+                "Please enter your Google Apps Script Web App URL in API_URL."
+            );
+
+        }
+
 
         /* =================================================
            SEND GET REQUEST
@@ -651,6 +483,20 @@ async function loadData() {
                 encodeURIComponent(TOKEN)
 
             );
+
+
+        /* =================================================
+           CHECK HTTP RESPONSE
+        ================================================= */
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server returned HTTP " +
+                response.status
+            );
+
+        }
 
 
         /* =================================================
@@ -689,15 +535,12 @@ async function loadData() {
            DISPLAY DATA
         ================================================= */
 
-        displayData(
-            allData
-        );
-
+        displayData(allData);
 
     }
 
-    catch (error) {
 
+    catch (error) {
 
         console.error(error);
 
@@ -719,7 +562,7 @@ async function loadData() {
                     colspan="12"
                     class="no-data">
 
-                  
+                    Unable to load maintenance records.
 
                 </td>
 
@@ -737,13 +580,11 @@ async function loadData() {
 }
 
 
-
 /* =========================================================
    DISPLAY DATA
 ========================================================= */
 
 function displayData(data) {
-
 
     const tableBody =
         document.getElementById(
@@ -761,13 +602,11 @@ function displayData(data) {
         data.length;
 
 
-
     /* =====================================================
        NO DATA
     ===================================================== */
 
     if (data.length === 0) {
-
 
         tableBody.innerHTML = `
 
@@ -785,11 +624,9 @@ function displayData(data) {
 
         `;
 
-
         return;
 
     }
-
 
 
     /* =====================================================
@@ -799,13 +636,11 @@ function displayData(data) {
     tableBody.innerHTML = "";
 
 
-
     /* =====================================================
        ADD EACH RECORD
     ===================================================== */
 
     data.forEach(function(row) {
-
 
         const status =
             row["Status"] ||
@@ -813,15 +648,11 @@ function displayData(data) {
 
 
         const statusClass =
-            getStatusClass(
-                status
-            );
+            getStatusClass(status);
 
 
         const tr =
-            document.createElement(
-                "tr"
-            );
+            document.createElement("tr");
 
 
         tr.innerHTML = `
@@ -884,14 +715,11 @@ function displayData(data) {
         `;
 
 
-        tableBody.appendChild(
-            tr
-        );
+        tableBody.appendChild(tr);
 
     });
 
 }
-
 
 
 /* =========================================================
@@ -899,7 +727,6 @@ function displayData(data) {
 ========================================================= */
 
 function getStatusClass(status) {
-
 
     const value =
         String(status)
@@ -942,7 +769,6 @@ function getStatusClass(status) {
 }
 
 
-
 /* =========================================================
    SEARCH
 ========================================================= */
@@ -966,9 +792,7 @@ document
 
             if (!keyword) {
 
-                displayData(
-                    allData
-                );
+                displayData(allData);
 
                 return;
 
@@ -983,15 +807,11 @@ document
                 allData.filter(
                     function(row) {
 
-
                         return Object
                             .values(row)
                             .join(" ")
                             .toLowerCase()
-                            .includes(
-                                keyword
-                            );
-
+                            .includes(keyword);
 
                     }
                 );
@@ -1001,13 +821,10 @@ document
                DISPLAY FILTERED DATA
             ============================================= */
 
-            displayData(
-                filtered
-            );
+            displayData(filtered);
 
         }
     );
-
 
 
 /* =========================================================
@@ -1015,7 +832,6 @@ document
 ========================================================= */
 
 function safe(value) {
-
 
     if (
         value === null ||
@@ -1057,16 +873,13 @@ function safe(value) {
 }
 
 
-
 /* =========================================================
    LOAD DATA WHEN PAGE OPENS
 ========================================================= */
 
 loadData();
 
-
 </script>
-
 
 </body>
 
