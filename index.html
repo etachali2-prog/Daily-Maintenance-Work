@@ -198,44 +198,6 @@ body{
 
 
 /* =========================================================
-   DASHBOARD
-========================================================= */
-
-.dashboard-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(auto-fit,minmax(220px,1fr));
-
-    gap:18px;
-
-    margin-bottom:25px;
-}
-
-.dashboard-card{
-    background:white;
-
-    border-radius:12px;
-
-    padding:20px;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.08);
-}
-
-.dashboard-card h4{
-    margin:0 0 10px;
-    color:#607d8b;
-}
-
-.dashboard-number{
-    font-size:28px;
-    font-weight:bold;
-    color:#0d47a1;
-}
-
-
-/* =========================================================
    FORM
 ========================================================= */
 
@@ -360,7 +322,7 @@ table{
 
     border-collapse:collapse;
 
-    min-width:900px;
+    min-width:850px;
 
     background:white;
 }
@@ -470,56 +432,233 @@ th{
 
 
 /* =========================================================
-   SEARCH
+   SCHEDULE SELECTOR
 ========================================================= */
 
-.search-box{
-    margin-bottom:15px;
+.schedule-selector-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(220px,1fr));
+
+    gap:18px;
+
+    margin-bottom:20px;
 }
 
-.search-box input{
-    max-width:400px;
+.schedule-step{
+    position:relative;
+}
+
+.schedule-step label{
+    display:block;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    color:#455a64;
+
+    margin-bottom:7px;
+}
+
+.schedule-step select{
+    font-size:15px;
+
+    font-weight:bold;
+
+    min-height:46px;
+}
+
+.schedule-step select:disabled{
+    background:#eceff1;
+
+    color:#90a4ae;
+
+    cursor:not-allowed;
 }
 
 
 /* =========================================================
-   CALENDAR
+   SCHEDULE SUMMARY
 ========================================================= */
 
-.calendar-grid{
+.schedule-path{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:18px;
+}
+
+.path-item{
+    background:#e3f2fd;
+
+    color:#1565c0;
+
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+.path-arrow{
+    color:#90a4ae;
+
+    font-weight:bold;
+}
+
+.schedule-summary{
+    background:#f8fafc;
+
+    border-left:5px solid #1565c0;
+
+    padding:16px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+}
+
+.schedule-summary h3{
+    margin:0 0 7px;
+}
+
+.schedule-summary p{
+    margin:3px 0;
+    color:#607d8b;
+}
+
+
+/* =========================================================
+   WEEK CARDS
+========================================================= */
+
+.week-grid{
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(4,1fr);
 
     gap:15px;
+
+    margin-bottom:20px;
 }
 
-.month-card{
-    background:white;
+.week-card{
+    border:1px solid #e0e0e0;
 
     border-radius:10px;
 
-    padding:18px;
+    padding:16px;
 
-    box-shadow:
-        0 3px 10px rgba(0,0,0,.07);
+    background:#fff;
 
-    border-left:5px solid #1565c0;
+    cursor:pointer;
+
+    transition:.2s;
 }
 
-.month-card h4{
-    margin-top:0;
+.week-card:hover{
+    border-color:#1565c0;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.08);
+}
+
+.week-card.active{
+    border:2px solid #1565c0;
+
+    background:#f5f9ff;
+}
+
+.week-card h4{
+    margin:0 0 8px;
+
     color:#0d47a1;
 }
 
-.month-card ul{
-    margin:10px 0 0;
-    padding-left:20px;
+.week-count{
+    font-size:25px;
+
+    font-weight:bold;
+
+    color:#00897b;
 }
 
-.month-card li{
-    margin-bottom:5px;
+.week-card p{
+    margin:5px 0 0;
+
+    color:#607d8b;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   DAY GRID
+========================================================= */
+
+.day-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.day-card{
+    padding:13px 8px;
+
+    text-align:center;
+
+    border:1px solid #dce3e8;
+
+    border-radius:8px;
+
+    background:white;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.day-card:hover{
+    border-color:#00897b;
+}
+
+.day-card.active{
+    background:#e8f5e9;
+
+    border-color:#00897b;
+}
+
+.day-name{
+    font-weight:bold;
+
+    color:#37474f;
+}
+
+.day-count{
+    display:block;
+
+    margin-top:5px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#00897b;
 }
 
 
@@ -537,51 +676,6 @@ th{
     border-radius:8px;
 
     margin-bottom:15px;
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal{
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.55);
-
-    z-index:5000;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:20px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-content{
-    background:white;
-
-    width:100%;
-    max-width:450px;
-
-    border-radius:12px;
-
-    padding:25px;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.25);
-}
-
-.modal-content h3{
-    margin-top:0;
 }
 
 
@@ -604,6 +698,26 @@ th{
    RESPONSIVE
 ========================================================= */
 
+@media(max-width:1000px){
+
+    .schedule-selector-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .week-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .day-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+}
+
+
 @media(max-width:900px){
 
     .header-content{
@@ -619,12 +733,8 @@ th{
         grid-template-columns:1fr;
     }
 
-    .calendar-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
 }
+
 
 @media(max-width:600px){
 
@@ -640,19 +750,19 @@ th{
         font-size:14px;
     }
 
-    .calendar-grid{
+    .schedule-selector-grid{
         grid-template-columns:1fr;
     }
 
-}
+    .week-grid{
+        grid-template-columns:1fr;
+    }
 
+    .day-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
 
-/* =========================================================
-   HIDDEN
-========================================================= */
-
-.hidden{
-    display:none !important;
 }
 
 </style>
@@ -684,7 +794,6 @@ th{
             </p>
 
         </div>
-
 
         <div
             class="clock"
@@ -754,7 +863,7 @@ th{
 
 
 <!-- =========================================================
-     MAIN CONTAINER
+     MAIN
 ========================================================= -->
 
 <main class="container">
@@ -816,16 +925,13 @@ th{
             </div>
 
 
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="equipmentSearch"
-                    placeholder="Search equipment..."
-                    oninput="filterEquipment()"
-                >
-
-            </div>
+            <input
+                type="text"
+                id="equipmentSearch"
+                placeholder="Search equipment..."
+                oninput="filterEquipment()"
+                style="max-width:400px;"
+            >
 
         </div>
 
@@ -849,7 +955,6 @@ th{
                     </tr>
 
                 </thead>
-
 
                 <tbody id="equipmentBody"></tbody>
 
@@ -878,7 +983,7 @@ th{
         </h2>
 
         <p>
-            July – June maintenance planning.
+            Annual maintenance planning from July to June.
         </p>
 
     </div>
@@ -915,18 +1020,19 @@ th{
 
                     <tr>
 
+                        <th>No.</th>
+
                         <th>Equipment</th>
 
                         <th>Group</th>
 
-                        <th>PM Months</th>
+                        <th>Scheduled Months</th>
 
                         <th>Frequency</th>
 
                     </tr>
 
                 </thead>
-
 
                 <tbody id="annualPMBody"></tbody>
 
@@ -951,87 +1057,202 @@ th{
     <div class="section-title">
 
         <h2>
-            Monthly Preventive Maintenance
+            Monthly Preventive Maintenance Schedule
         </h2>
 
         <p>
-            Select a month to view planned equipment.
+            Select Month → Week → Day to view assigned machines.
         </p>
 
     </div>
 
 
+    <!-- =====================================================
+         MONTH / WEEK / DAY SELECTORS
+    ====================================================== -->
+
     <div class="card">
 
-        <div class="form-group">
+        <div class="schedule-selector-grid">
 
-            <label for="monthSelector">
-                Select Month
-            </label>
 
-            <select
-                id="monthSelector"
-                onchange="displayMonthlyPM()"
-            >
+            <!-- MONTH -->
 
-                <option value="July">
-                    July
-                </option>
+            <div class="schedule-step">
 
-                <option value="August">
-                    August
-                </option>
+                <label for="monthSelector">
+                    1. Select Month
+                </label>
 
-                <option value="September">
-                    September
-                </option>
+                <select
+                    id="monthSelector"
+                    onchange="monthChanged()"
+                >
 
-                <option value="October">
-                    October
-                </option>
+                    <option value="">
+                        Select Month
+                    </option>
 
-                <option value="November">
-                    November
-                </option>
+                    <option value="July">
+                        July
+                    </option>
 
-                <option value="December">
-                    December
-                </option>
+                    <option value="August">
+                        August
+                    </option>
 
-                <option value="January">
-                    January
-                </option>
+                    <option value="September">
+                        September
+                    </option>
 
-                <option value="February">
-                    February
-                </option>
+                    <option value="October">
+                        October
+                    </option>
 
-                <option value="March">
-                    March
-                </option>
+                    <option value="November">
+                        November
+                    </option>
 
-                <option value="April">
-                    April
-                </option>
+                    <option value="December">
+                        December
+                    </option>
 
-                <option value="May">
-                    May
-                </option>
+                    <option value="January">
+                        January
+                    </option>
 
-                <option value="June">
-                    June
-                </option>
+                    <option value="February">
+                        February
+                    </option>
 
-            </select>
+                    <option value="March">
+                        March
+                    </option>
+
+                    <option value="April">
+                        April
+                    </option>
+
+                    <option value="May">
+                        May
+                    </option>
+
+                    <option value="June">
+                        June
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- WEEK -->
+
+            <div class="schedule-step">
+
+                <label for="weekSelector">
+                    2. Select Week
+                </label>
+
+                <select
+                    id="weekSelector"
+                    onchange="weekChanged()"
+                    disabled
+                >
+
+                    <option value="">
+                        Select Month First
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DAY -->
+
+            <div class="schedule-step">
+
+                <label for="daySelector">
+                    3. Select Day
+                </label>
+
+                <select
+                    id="daySelector"
+                    onchange="dayChanged()"
+                    disabled
+                >
+
+                    <option value="">
+                        Select Week First
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- PATH -->
+
+        <div
+            class="schedule-path"
+            id="schedulePath"
+        >
+
+            <span class="path-item">
+                No selection
+            </span>
 
         </div>
 
     </div>
 
 
+    <!-- =====================================================
+         MONTH RESULT
+    ====================================================== -->
+
     <div
         class="card"
-        id="monthlyPMResult"
+        id="monthlyScheduleResult"
+    >
+
+        <div class="schedule-summary">
+
+            <h3>
+                Maintenance Schedule
+            </h3>
+
+            <p>
+                Select a month above to begin.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         WEEK RESULT
+    ====================================================== -->
+
+    <div
+        class="card"
+        id="weeklyScheduleResult"
+        style="display:none;"
+    ></div>
+
+
+    <!-- =====================================================
+         DAY RESULT
+    ====================================================== -->
+
+    <div
+        class="card"
+        id="dailyScheduleResult"
+        style="display:none;"
     ></div>
 
 </section>
@@ -1053,7 +1274,8 @@ th{
         </h2>
 
         <p>
-            Weekly maintenance activities and inspection tasks.
+            Weekly maintenance schedule generated from
+            the selected monthly PM plan.
         </p>
 
     </div>
@@ -1062,154 +1284,20 @@ th{
     <div class="card">
 
         <h3>
-            Weekly Maintenance Checklist
+            Weekly Schedule
         </h3>
 
+        <p>
+            Use the Monthly PM section to select:
+            <strong>Month → Week → Day</strong>.
+        </p>
 
-        <div class="table-container">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>No.</th>
-
-                        <th>Activity</th>
-
-                        <th>Responsible Team</th>
-
-                        <th>Frequency</th>
-
-                        <th>Status</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    <tr>
-
-                        <td>1</td>
-
-                        <td>
-                            Check lubrication points
-                        </td>
-
-                        <td>
-                            Mechanical Team
-                        </td>
-
-                        <td>
-                            Weekly
-                        </td>
-
-                        <td>
-                            Pending
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>2</td>
-
-                        <td>
-                            Check electrical panels
-                        </td>
-
-                        <td>
-                            Electrical Team
-                        </td>
-
-                        <td>
-                            Weekly
-                        </td>
-
-                        <td>
-                            Pending
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>3</td>
-
-                        <td>
-                            Inspect belts and chains
-                        </td>
-
-                        <td>
-                            Mechanical Team
-                        </td>
-
-                        <td>
-                            Weekly
-                        </td>
-
-                        <td>
-                            Pending
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>4</td>
-
-                        <td>
-                            Inspect safety devices
-                        </td>
-
-                        <td>
-                            Technical Team
-                        </td>
-
-                        <td>
-                            Weekly
-                        </td>
-
-                        <td>
-                            Pending
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>5</td>
-
-                        <td>
-                            Check compressor and air system
-                        </td>
-
-                        <td>
-                            Utility Team
-                        </td>
-
-                        <td>
-                            Weekly
-                        </td>
-
-                        <td>
-                            Pending
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
+        <button
+            class="btn btn-primary"
+            onclick="showSectionByName('monthlyPM')"
+        >
+            Open Monthly Schedule
+        </button>
 
     </div>
 
@@ -1254,8 +1342,6 @@ th{
             <div class="form-grid">
 
 
-                <!-- DATE -->
-
                 <div class="form-group">
 
                     <label for="workDate">
@@ -1271,8 +1357,6 @@ th{
                 </div>
 
 
-                <!-- TIME -->
-
                 <div class="form-group">
 
                     <label for="workTime">
@@ -1287,8 +1371,6 @@ th{
 
                 </div>
 
-
-                <!-- EQUIPMENT -->
 
                 <div class="form-group">
 
@@ -1310,8 +1392,6 @@ th{
                 </div>
 
 
-                <!-- TECHNICIAN -->
-
                 <div class="form-group">
 
                     <label for="workTechnician">
@@ -1331,8 +1411,6 @@ th{
 
                 </div>
 
-
-                <!-- WORK TYPE -->
 
                 <div class="form-group">
 
@@ -1390,8 +1468,6 @@ th{
                 </div>
 
 
-                <!-- PRIORITY -->
-
                 <div class="form-group">
 
                     <label for="workPriority">
@@ -1424,8 +1500,6 @@ th{
                 </div>
 
 
-                <!-- DESCRIPTION -->
-
                 <div
                     class="form-group"
                     style="grid-column:1/-1;"
@@ -1446,8 +1520,6 @@ th{
 
             </div>
 
-
-            <!-- BUTTONS -->
 
             <div
                 style="
@@ -1481,9 +1553,7 @@ th{
     </div>
 
 
-    <!-- =====================================================
-         GOOGLE SHEET STATUS
-    ====================================================== -->
+    <!-- GOOGLE SHEET STATUS -->
 
     <div
         id="googleSheetStatus"
@@ -1493,36 +1563,22 @@ th{
     </div>
 
 
-    <!-- =====================================================
-         GOOGLE SHEET RECORDS
-    ====================================================== -->
+    <!-- GOOGLE SHEET RECORDS -->
 
     <div class="card">
 
-        <div
+        <h3>
+            Daily Maintenance Records
+        </h3>
+
+        <p
             style="
-                display:flex;
-                justify-content:space-between;
-                align-items:center;
-                gap:10px;
-                flex-wrap:wrap;
-                margin-bottom:15px;
+                color:#607d8b;
+                font-size:13px;
             "
         >
-
-            <div>
-
-                <h3 style="margin:0;">
-                    Daily Maintenance Records
-                </h3>
-
-                <small style="color:#607d8b;">
-                    Records are automatically loaded from Google Sheets.
-                </small>
-
-            </div>
-
-        </div>
+            Records are automatically loaded from Google Sheets.
+        </p>
 
 
         <div class="table-container">
@@ -1553,16 +1609,18 @@ th{
 
                 </thead>
 
-
                 <tbody id="dailyRecordsBody">
 
                     <tr>
 
                         <td
                             colspan="8"
-                            style="text-align:center;padding:25px;"
+                            style="
+                                text-align:center;
+                                padding:25px;
+                            "
                         >
-                            Loading Google Sheet records...
+                            Loading...
                         </td>
 
                     </tr>
@@ -1609,9 +1667,8 @@ th{
             </strong>
 
             <p>
-                Scheduled maintenance activities can generate
-                browser notifications when notification permission
-                is enabled.
+                Enable browser notifications to receive maintenance
+                reminders.
             </p>
 
         </div>
@@ -1647,19 +1704,16 @@ th{
 </footer>
 
 
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
-
 <script>
 
 
 /* =========================================================
    GOOGLE SHEETS CONFIGURATION
+   DO NOT CHANGE
 ========================================================= */
 
 const GOOGLE_SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbxDh5JSpM8AA-yRLa4CdVOk97eghIeFcBMHsbc5m7jFCSB5gRvO6w8P8KQPj06FC7TR/exec";
+"https://script.google.com/macros/s/AKfycbwm2rq4RiIO8WqmMiYSabgrLG4ui-ElyNGtD-5b_hxxIlW03io6kSs4ZGEqos6BgMX1/exec";
 
 const GOOGLE_TOKEN =
 "MELBA2026";
@@ -1739,7 +1793,7 @@ const equipmentList = [
 
 
 /* =========================================================
-   EQUIPMENT GROUPS
+   GROUP 1
 ========================================================= */
 
 const group1 = [
@@ -1778,6 +1832,10 @@ const group1 = [
 
 ];
 
+
+/* =========================================================
+   GROUP 2
+========================================================= */
 
 const group2 = [
 
@@ -1846,6 +1904,79 @@ const technicians = [
 
 
 /* =========================================================
+   MONTH GROUP ASSIGNMENT
+========================================================= */
+
+const monthGroups = {
+
+    July: [],
+
+    August: group1,
+
+    September: group2,
+
+    October: group2,
+
+    November: group1,
+
+    December: group1,
+
+    January: group2,
+
+    February: group2,
+
+    March: group1,
+
+    April: group1,
+
+    May: group2,
+
+    June: group2
+
+};
+
+
+/* =========================================================
+   WEEKS
+========================================================= */
+
+const weeks = [
+
+    "Week 1",
+
+    "Week 2",
+
+    "Week 3",
+
+    "Week 4"
+
+];
+
+
+/* =========================================================
+   DAYS
+========================================================= */
+
+const days = [
+
+    "Monday",
+
+    "Tuesday",
+
+    "Wednesday",
+
+    "Thursday",
+
+    "Friday",
+
+    "Saturday",
+
+    "Sunday"
+
+];
+
+
+/* =========================================================
    SHOW SECTION
 ========================================================= */
 
@@ -1902,7 +2033,7 @@ function showSection(
 
     if(sectionId === "monthlyPM"){
 
-        displayMonthlyPM();
+        monthChanged();
 
     }
 
@@ -1910,7 +2041,40 @@ function showSection(
 
 
 /* =========================================================
-   LIVE CLOCK
+   OPEN MONTHLY SECTION FROM WEEKLY
+========================================================= */
+
+function showSectionByName(
+    sectionId
+){
+
+    const button =
+        Array.from(
+            document.querySelectorAll(".nav-link")
+        ).find(function(link){
+
+            return link.textContent
+                .trim()
+                .toLowerCase()
+                .includes(
+                    sectionId === "monthlyPM"
+                    ? "monthly"
+                    : ""
+                );
+
+        });
+
+
+    showSection(
+        sectionId,
+        button
+    );
+
+}
+
+
+/* =========================================================
+   CLOCK
 ========================================================= */
 
 function updateClock(){
@@ -1959,7 +2123,7 @@ updateClock();
 
 
 /* =========================================================
-   LOAD EQUIPMENT TABLE
+   EQUIPMENT TABLE
 ========================================================= */
 
 function loadEquipmentTable(){
@@ -2033,18 +2197,10 @@ function loadEquipmentTable(){
         html;
 
 
-    const count =
-        document.getElementById(
-            "equipmentCount"
-        );
-
-
-    if(count){
-
-        count.textContent =
-            equipmentList.length;
-
-    }
+    document.getElementById(
+        "equipmentCount"
+    ).textContent =
+        equipmentList.length;
 
 }
 
@@ -2062,43 +2218,24 @@ function filterEquipment(){
 
 
     const value =
-        input
-        ? input.value.toLowerCase()
-        : "";
+        input.value
+            .toLowerCase();
 
 
-    const body =
-        document.getElementById(
-            "equipmentBody"
-        );
-
-
-    if(!body){
-        return;
-    }
-
-
-    const rows =
-        body.querySelectorAll(
-            "tr"
-        );
-
-
-    rows.forEach(
-        function(row){
-
-            const text =
-                row.textContent
-                    .toLowerCase();
-
+    document
+        .querySelectorAll(
+            "#equipmentBody tr"
+        )
+        .forEach(function(row){
 
             row.style.display =
-                text.includes(value)
-                ? ""
-                : "none";
+                row.textContent
+                    .toLowerCase()
+                    .includes(value)
+                    ? ""
+                    : "none";
 
-        }
-    );
+        });
 
 }
 
@@ -2115,29 +2252,32 @@ function displayAnnualPM(){
         );
 
 
-    if(!body){
-        return;
-    }
-
-
     let html = "";
+
+    let no = 1;
 
 
     equipmentList.forEach(
-        function(equipment){
+        function(machine){
+
+            const isGroup1 =
+                group1.includes(
+                    machine
+                );
+
 
             const group =
-                group1.includes(equipment)
+                isGroup1
                 ? "Group 1"
                 : "Group 2";
 
 
-            const months =
-                group === "Group 1"
+            let months =
+                isGroup1
 
-                ? "Aug, Nov, Dec, Mar, Apr"
+                ? "August, November, December, March, April"
 
-                : "Sep, Oct, Jan, Feb, May, Jun";
+                : "September, October, January, February, May, June";
 
 
             html += `
@@ -2145,7 +2285,11 @@ function displayAnnualPM(){
                 <tr>
 
                     <td>
-                        ${escapeHTML(equipment)}
+                        ${no++}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(machine)}
                     </td>
 
                     <td>
@@ -2157,7 +2301,7 @@ function displayAnnualPM(){
                     </td>
 
                     <td>
-                        Preventive Maintenance
+                        Planned PM
                     </td>
 
                 </tr>
@@ -2175,95 +2319,184 @@ function displayAnnualPM(){
 
 
 /* =========================================================
-   MONTHLY PM
+   MONTH CHANGED
 ========================================================= */
 
-function displayMonthlyPM(){
+function monthChanged(){
 
-    const monthSelector =
+    const month =
         document.getElementById(
             "monthSelector"
-        );
+        ).value;
 
 
-    const result =
+    const weekSelector =
         document.getElementById(
-            "monthlyPMResult"
+            "weekSelector"
         );
 
 
-    if(
-        !monthSelector ||
-        !result
-    ){
+    const daySelector =
+        document.getElementById(
+            "daySelector"
+        );
+
+
+    const weeklyResult =
+        document.getElementById(
+            "weeklyScheduleResult"
+        );
+
+
+    const dailyResult =
+        document.getElementById(
+            "dailyScheduleResult"
+        );
+
+
+    /* Reset Week */
+
+    weekSelector.innerHTML = `
+
+        <option value="">
+            Select Week
+        </option>
+
+    `;
+
+
+    /* Reset Day */
+
+    daySelector.innerHTML = `
+
+        <option value="">
+            Select Week First
+        </option>
+
+    `;
+
+
+    weekSelector.disabled =
+        true;
+
+    daySelector.disabled =
+        true;
+
+
+    weeklyResult.style.display =
+        "none";
+
+    dailyResult.style.display =
+        "none";
+
+
+    if(!month){
+
+        updateSchedulePath();
+
+        document.getElementById(
+            "monthlyScheduleResult"
+        ).innerHTML = `
+
+            <div class="schedule-summary">
+
+                <h3>
+                    Maintenance Schedule
+                </h3>
+
+                <p>
+                    Select a month to view the
+                    scheduled machines.
+                </p>
+
+            </div>
+
+        `;
 
         return;
 
     }
 
 
-    const month =
-        monthSelector.value;
+    const machines =
+        monthGroups[month] || [];
 
 
-    let group = "";
+    /* -------------------------------------------------------
+       LOAD WEEKS
+    ------------------------------------------------------- */
+
+    weeks.forEach(
+        function(week){
+
+            const option =
+                document.createElement(
+                    "option"
+                );
 
 
-    if(
-        month === "August" ||
-        month === "November" ||
-        month === "December" ||
-        month === "March" ||
-        month === "April"
-    ){
-
-        group = "Group 1";
-
-    }
-
-    else if(
-        month === "September" ||
-        month === "October" ||
-        month === "January" ||
-        month === "February" ||
-        month === "May" ||
-        month === "June"
-    ){
-
-        group = "Group 2";
-
-    }
+            option.value =
+                week;
 
 
-    let machines = [];
+            option.textContent =
+                week;
 
 
-    if(group === "Group 1"){
+            weekSelector.appendChild(
+                option
+            );
 
-        machines =
-            group1;
+        }
+    );
 
-    }
 
-    else if(group === "Group 2"){
+    weekSelector.disabled =
+        false;
 
-        machines =
-            group2;
 
-    }
+    updateSchedulePath();
+
+
+    displayMonthMachines(
+        month,
+        machines
+    );
+
+}
+
+
+/* =========================================================
+   DISPLAY ALL MACHINES FOR MONTH
+========================================================= */
+
+function displayMonthMachines(
+    month,
+    machines
+){
+
+    const result =
+        document.getElementById(
+            "monthlyScheduleResult"
+        );
 
 
     if(machines.length === 0){
 
         result.innerHTML = `
 
-            <h3>
-                ${month}
-            </h3>
+            <div class="schedule-summary">
 
-            <p>
-                No PM group assigned for this month.
-            </p>
+                <h3>
+                    ${escapeHTML(month)}
+                </h3>
+
+                <p>
+                    No machines are currently assigned
+                    to this month.
+                </p>
+
+            </div>
 
         `;
 
@@ -2274,13 +2507,23 @@ function displayMonthlyPM(){
 
     let html = `
 
-        <h3>
-            ${month} — ${group}
-        </h3>
+        <div class="schedule-summary">
 
-        <p>
-            Planned preventive maintenance equipment:
-        </p>
+            <h3>
+                ${escapeHTML(month)} Maintenance Schedule
+            </h3>
+
+            <p>
+                Total scheduled machines:
+                <strong>${machines.length}</strong>
+            </p>
+
+            <p>
+                Select a week above to continue.
+            </p>
+
+        </div>
+
 
         <div class="table-container">
 
@@ -2292,9 +2535,11 @@ function displayMonthlyPM(){
 
                         <th>No.</th>
 
-                        <th>Equipment</th>
+                        <th>Machine</th>
 
-                        <th>PM Status</th>
+                        <th>Group</th>
+
+                        <th>Monthly PM</th>
 
                     </tr>
 
@@ -2307,6 +2552,12 @@ function displayMonthlyPM(){
 
     machines.forEach(
         function(machine,index){
+
+            const group =
+                group1.includes(machine)
+                ? "Group 1"
+                : "Group 2";
+
 
             html += `
 
@@ -2321,7 +2572,11 @@ function displayMonthlyPM(){
                     </td>
 
                     <td>
-                        Planned
+                        ${group}
+                    </td>
+
+                    <td>
+                        Scheduled
                     </td>
 
                 </tr>
@@ -2350,559 +2605,267 @@ function displayMonthlyPM(){
 
 
 /* =========================================================
-   TECHNICIAN DROPDOWN
+   WEEK CHANGED
 ========================================================= */
 
-function loadTechnicians(){
-
-    const select =
-        document.getElementById(
-            "workTechnician"
-        );
-
-
-    if(!select){
-        return;
-    }
-
-
-    select.innerHTML = `
-
-        <option value="">
-            Select Technician
-        </option>
-
-    `;
-
-
-    technicians.forEach(
-        function(technician){
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                technician;
-
-
-            option.textContent =
-                technician;
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   EQUIPMENT DROPDOWN
-========================================================= */
-
-function loadEquipmentDropdown(){
-
-    const select =
-        document.getElementById(
-            "workEquipment"
-        );
-
-
-    if(!select){
-        return;
-    }
-
-
-    select.innerHTML = `
-
-        <option value="">
-            Select Equipment
-        </option>
-
-    `;
-
-
-    equipmentList.forEach(
-        function(equipment){
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                equipment;
-
-
-            option.textContent =
-                equipment;
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOCAL DATE
-========================================================= */
-
-function getLocalDate(){
-
-    const now =
-        new Date();
-
-
-    const year =
-        now.getFullYear();
-
+function weekChanged(){
 
     const month =
-        String(
-            now.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    return `${year}-${month}-${day}`;
-
-}
-
-
-/* =========================================================
-   LOCAL TIME
-========================================================= */
-
-function getLocalTime(){
-
-    const now =
-        new Date();
-
-
-    const hours =
-        String(
-            now.getHours()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    const minutes =
-        String(
-            now.getMinutes()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    return `${hours}:${minutes}`;
-
-}
-
-
-/* =========================================================
-   CLEAR DAILY FORM
-========================================================= */
-
-function clearDailyForm(){
-
-    const form =
         document.getElementById(
-            "dailyWorkForm"
-        );
+            "monthSelector"
+        ).value;
 
 
-    if(form){
-
-        form.reset();
-
-    }
-
-
-    const date =
+    const week =
         document.getElementById(
-            "workDate"
-        );
+            "weekSelector"
+        ).value;
 
 
-    const time =
+    const daySelector =
         document.getElementById(
-            "workTime"
+            "daySelector"
         );
 
 
-    if(date){
-
-        date.value =
-            getLocalDate();
-
-    }
-
-
-    if(time){
-
-        time.value =
-            getLocalTime();
-
-    }
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(value){
-
-    if(
-        value === null ||
-        value === undefined
-    ){
-
-        return "";
-
-    }
-
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =========================================================
-   PRIORITY CLASS
-========================================================= */
-
-function getPriorityClass(
-    priority
-){
-
-    const value =
-        String(
-            priority || ""
-        ).toLowerCase();
-
-
-    if(value === "high"){
-
-        return "priority-high";
-
-    }
-
-
-    if(value === "medium"){
-
-        return "priority-medium";
-
-    }
-
-
-    if(value === "low"){
-
-        return "priority-low";
-
-    }
-
-
-    return "";
-
-}
-
-
-/* =========================================================
-   LOAD GOOGLE SHEET RECORDS
-   AUTOMATICALLY
-========================================================= */
-
-async function loadGoogleSheetData(){
-
-    const status =
+    const dailyResult =
         document.getElementById(
-            "googleSheetStatus"
+            "dailyScheduleResult"
         );
 
 
-    const tbody =
-        document.getElementById(
-            "dailyRecordsBody"
-        );
+    dailyResult.style.display =
+        "none";
 
 
-    if(status){
+    daySelector.innerHTML = `
 
-        status.className =
-            "status-box status-loading";
+        <option value="">
+            Select Day
+        </option>
 
+    `;
 
-        status.textContent =
-            "Loading Google Sheet records...";
 
-    }
+    daySelector.disabled =
+        true;
 
 
-    if(tbody){
+    if(!month || !week){
 
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="8"
-                    style="
-                        text-align:center;
-                        padding:25px;
-                    "
-                >
-
-                    Loading Google Sheet records...
-
-                </td>
-
-            </tr>
-
-        `;
-
-    }
-
-
-    try{
-
-        const url =
-            GOOGLE_SCRIPT_URL +
-
-            "?action=getDailyMaintenance" +
-
-            "&token=" +
-
-            encodeURIComponent(
-                GOOGLE_TOKEN
-            ) +
-
-            "&t=" +
-
-            Date.now();
-
-
-        const response =
-            await fetch(
-                url,
-                {
-                    method:"GET",
-                    cache:"no-store"
-                }
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP error: " +
-                response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(!data.success){
-
-            throw new Error(
-                data.error ||
-                "Google Sheet returned an error."
-            );
-
-        }
-
-
-        displayGoogleSheetRecords(
-            data.records || []
-        );
-
-
-        if(status){
-
-            status.className =
-                "status-box status-success";
-
-
-            status.textContent =
-                "✓ Google Sheet connected — " +
-
-                (data.records || []).length +
-
-                " record(s) loaded.";
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Google Sheet connection error:",
-            error
-        );
-
-
-        if(status){
-
-            status.className =
-                "status-box status-error";
-
-
-            status.textContent =
-                "✗ Google Sheet connection failed: " +
-                error.message;
-
-        }
-
-
-        if(tbody){
-
-            tbody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="8"
-                        style="
-                            text-align:center;
-                            color:#c62828;
-                            padding:25px;
-                        "
-                    >
-
-                        Google Sheet records
-                        could not be loaded.
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   DISPLAY GOOGLE SHEET RECORDS
-========================================================= */
-
-function displayGoogleSheetRecords(
-    records
-){
-
-    const tbody =
-        document.getElementById(
-            "dailyRecordsBody"
-        );
-
-
-    if(!tbody){
-        return;
-    }
-
-
-    if(
-        !records ||
-        records.length === 0
-    ){
-
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="8"
-                    style="
-                        text-align:center;
-                        padding:25px;
-                    "
-                >
-
-                    No maintenance records found
-                    in Google Sheets.
-
-                </td>
-
-            </tr>
-
-        `;
+        updateSchedulePath();
 
         return;
 
     }
 
 
-    let html = "";
+    days.forEach(
+        function(day){
 
-
-    records.forEach(
-        function(record,index){
-
-            const priorityClass =
-                getPriorityClass(
-                    record.priority
+            const option =
+                document.createElement(
+                    "option"
                 );
 
+
+            option.value =
+                day;
+
+
+            option.textContent =
+                day;
+
+
+            daySelector.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    daySelector.disabled =
+        false;
+
+
+    updateSchedulePath();
+
+
+    displayWeekMachines(
+        month,
+        week
+    );
+
+}
+
+
+/* =========================================================
+   GET MACHINES FOR WEEK
+========================================================= */
+
+function getWeekMachines(
+    month,
+    week
+){
+
+    const machines =
+        monthGroups[month] || [];
+
+
+    if(machines.length === 0){
+        return [];
+    }
+
+
+    /*
+     * The machines are distributed across
+     * Week 1–4 automatically.
+     *
+     * This creates a balanced schedule.
+     */
+
+    const weekIndex =
+        weeks.indexOf(
+            week
+        );
+
+
+    const total =
+        machines.length;
+
+
+    const base =
+        Math.floor(
+            total / 4
+        );
+
+
+    const remainder =
+        total % 4;
+
+
+    const start =
+        weekIndex * base +
+        Math.min(
+            weekIndex,
+            remainder
+        );
+
+
+    const count =
+        base +
+        (
+            weekIndex < remainder
+            ? 1
+            : 0
+        );
+
+
+    return machines.slice(
+        start,
+        start + count
+    );
+
+}
+
+
+/* =========================================================
+   DISPLAY WEEK MACHINES
+========================================================= */
+
+function displayWeekMachines(
+    month,
+    week
+){
+
+    const result =
+        document.getElementById(
+            "weeklyScheduleResult"
+        );
+
+
+    const machines =
+        getWeekMachines(
+            month,
+            week
+        );
+
+
+    result.style.display =
+        "block";
+
+
+    let html = `
+
+        <div class="schedule-summary">
+
+            <h3>
+                ${escapeHTML(month)}
+                —
+                ${escapeHTML(week)}
+            </h3>
+
+            <p>
+                Machines assigned to this week:
+                <strong>${machines.length}</strong>
+            </p>
+
+            <p>
+                Select a day above to see the
+                daily assignment.
+            </p>
+
+        </div>
+
+    `;
+
+
+    if(machines.length === 0){
+
+        html += `
+
+            <p>
+                No machines assigned.
+            </p>
+
+        `;
+
+        result.innerHTML =
+            html;
+
+        return;
+
+    }
+
+
+    html += `
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No.</th>
+
+                        <th>Machine</th>
+
+                        <th>Maintenance</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+    `;
+
+
+    machines.forEach(
+        function(machine,index){
 
             html += `
 
@@ -2913,53 +2876,11 @@ function displayGoogleSheetRecords(
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            record.date
-                        )}
+                        ${escapeHTML(machine)}
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            record.time
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            record.equipment
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            record.technician
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            record.workType
-                        )}
-                    </td>
-
-                    <td>
-
-                        <span
-                            class="${priorityClass}"
-                        >
-
-                            ${escapeHTML(
-                                record.priority
-                            )}
-
-                        </span>
-
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            record.description
-                        )}
+                        Preventive Maintenance
                     </td>
 
                 </tr>
@@ -2970,406 +2891,105 @@ function displayGoogleSheetRecords(
     );
 
 
-    tbody.innerHTML =
+    html += `
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+
+    result.innerHTML =
         html;
 
 }
 
 
 /* =========================================================
-   SAVE DAILY WORK TO GOOGLE SHEETS
+   DAY CHANGED
 ========================================================= */
 
-async function saveToGoogleSheets(
-    record
-){
+function dayChanged(){
 
-    const payload = {
-
-        token:
-            GOOGLE_TOKEN,
-
-        action:
-            "saveDailyMaintenance",
-
-        date:
-            record.date,
-
-        time:
-            record.time,
-
-        equipment:
-            record.equipment,
-
-        technician:
-            record.technician,
-
-        workType:
-            record.workType,
-
-        priority:
-            record.priority,
-
-        description:
-            record.description
-
-    };
-
-
-    try{
-
-        await fetch(
-
-            GOOGLE_SCRIPT_URL,
-
-            {
-
-                method:"POST",
-
-                mode:"no-cors",
-
-                headers:{
-
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-
-                },
-
-                body:
-                    JSON.stringify(
-                        payload
-                    )
-
-            }
-
-        );
-
-
-        /*
-         * Wait for Apps Script to finish
-         * writing the new row.
-         */
-
-        setTimeout(
-            function(){
-
-                loadGoogleSheetData();
-
-            },
-            1200
-        );
-
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Google Sheet save error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DAILY FORM SUBMIT
-========================================================= */
-
-function setupDailyForm(){
-
-    const form =
+    const month =
         document.getElementById(
-            "dailyWorkForm"
-        );
+            "monthSelector"
+        ).value;
 
 
-    if(!form){
+    const week =
+        document.getElementById(
+            "weekSelector"
+        ).value;
+
+
+    const day =
+        document.getElementById(
+            "daySelector"
+        ).value;
+
+
+    updateSchedulePath();
+
+
+    if(
+        !month ||
+        !week ||
+        !day
+    ){
+
         return;
+
     }
 
 
-    form.addEventListener(
-        "submit",
-        async function(event){
-
-            event.preventDefault();
-
-
-            const record = {
-
-                date:
-                    document.getElementById(
-                        "workDate"
-                    ).value,
-
-                time:
-                    document.getElementById(
-                        "workTime"
-                    ).value,
-
-                equipment:
-                    document.getElementById(
-                        "workEquipment"
-                    ).value,
-
-                technician:
-                    document.getElementById(
-                        "workTechnician"
-                    ).value,
-
-                workType:
-                    document.getElementById(
-                        "workType"
-                    ).value,
-
-                priority:
-                    document.getElementById(
-                        "workPriority"
-                    ).value,
-
-                description:
-                    document.getElementById(
-                        "workDescription"
-                    ).value.trim()
-
-            };
-
-
-            /* ------------------------------------------------
-               VALIDATION
-            ------------------------------------------------ */
-
-            if(
-
-                !record.date ||
-
-                !record.time ||
-
-                !record.equipment ||
-
-                !record.technician ||
-
-                !record.workType ||
-
-                !record.priority ||
-
-                !record.description
-
-            ){
-
-                alert(
-                    "Please complete all fields."
-                );
-
-                return;
-
-            }
-
-
-            /* ------------------------------------------------
-               SAVE LOCAL COPY
-            ------------------------------------------------ */
-
-            let localRecords =
-                JSON.parse(
-
-                    localStorage.getItem(
-                        "daily_maintenance_jobs"
-                    ) || "[]"
-
-                );
-
-
-            record.id =
-                Date.now();
-
-
-            localRecords.unshift(
-                record
-            );
-
-
-            localStorage.setItem(
-
-                "daily_maintenance_jobs",
-
-                JSON.stringify(
-                    localRecords
-                )
-
-            );
-
-
-            /* ------------------------------------------------
-               SEND TO GOOGLE SHEETS
-            ------------------------------------------------ */
-
-            await saveToGoogleSheets(
-                record
-            );
-
-
-            /* ------------------------------------------------
-               MESSAGE
-            ------------------------------------------------ */
-
-            alert(
-                "Daily maintenance saved successfully."
-            );
-
-
-            /* ------------------------------------------------
-               CLEAR
-            ------------------------------------------------ */
-
-            clearDailyForm();
-
-        }
+    displayDayMachines(
+        month,
+        week,
+        day
     );
 
 }
 
 
 /* =========================================================
-   BROWSER NOTIFICATION
+   GET MACHINES FOR DAY
 ========================================================= */
 
-function requestNotificationPermission(){
+function getDayMachines(
+    month,
+    week,
+    day
+){
+
+    const weekMachines =
+        getWeekMachines(
+            month,
+            week
+        );
+
 
     if(
-        !("Notification" in window)
+        weekMachines.length === 0
     ){
 
-        alert(
-            "This browser does not support notifications."
-        );
-
-        return;
+        return [];
 
     }
 
 
-    Notification
-        .requestPermission()
-        .then(
-            function(permission){
-
-                if(
-                    permission === "granted"
-                ){
-
-                    new Notification(
-                        "MELBA Maintenance System",
-                        {
-                            body:
-                            "Maintenance notifications are enabled."
-                        }
-                    );
-
-                }
-
-                else{
-
-                    alert(
-                        "Notification permission was not granted."
-                    );
-
-                }
-
-            }
+    const dayIndex =
+        days.indexOf(
+            day
         );
 
-}
 
-
-/* =========================================================
-   INITIALIZE APPLICATION
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        /* Equipment table */
-
-        loadEquipmentTable();
-
-
-        /* Equipment dropdown */
-
-        loadEquipmentDropdown();
-
-
-        /* Technician dropdown */
-
-        loadTechnicians();
-
-
-        /* Date */
-
-        const date =
-            document.getElementById(
-                "workDate"
-            );
-
-
-        if(date){
-
-            date.value =
-                getLocalDate();
-
-        }
-
-
-        /* Time */
-
-        const time =
-            document.getElementById(
-                "workTime"
-            );
-
-
-        if(time){
-
-            time.value =
-                getLocalTime();
-
-        }
-
-
-        /* Annual PM */
-
-        displayAnnualPM();
-
-
-        /* Monthly PM */
-
-        displayMonthlyPM();
-
-
-        /* Daily form */
-
-        setupDailyForm();
-
-
-        /*
-         * IMPORTANT:
-         * Google Sheet data is loaded automatically.
-         *
-         * There is NO refresh button.
-         */
-
-        loadGoogleSheetData();
-
-    }
-);
-
-</script>
-
-
-</body>
-
-</html>
+    /*
+     * Distribute the week's machines
+     * across Monday-Sunday.
+     *
+     * If there are fewer machines than days,
+     *
