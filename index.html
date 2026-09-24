@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -355,13 +356,13 @@ th{
 
 
 /* =========================================================
-   PRIORITY
+   PRIORITY A / B / C
 ========================================================= */
 
-.priority-high{
+.priority-A{
     display:inline-block;
 
-    padding:5px 9px;
+    padding:5px 10px;
 
     border-radius:20px;
 
@@ -372,10 +373,10 @@ th{
     font-weight:bold;
 }
 
-.priority-medium{
+.priority-B{
     display:inline-block;
 
-    padding:5px 9px;
+    padding:5px 10px;
 
     border-radius:20px;
 
@@ -386,10 +387,10 @@ th{
     font-weight:bold;
 }
 
-.priority-low{
+.priority-C{
     display:inline-block;
 
-    padding:5px 9px;
+    padding:5px 10px;
 
     border-radius:20px;
 
@@ -1067,16 +1068,9 @@ th{
     </div>
 
 
-    <!-- =====================================================
-         MONTH / WEEK / DAY SELECTORS
-    ====================================================== -->
-
     <div class="card">
 
         <div class="schedule-selector-grid">
-
-
-            <!-- MONTH -->
 
             <div class="schedule-step">
 
@@ -1146,8 +1140,6 @@ th{
             </div>
 
 
-            <!-- WEEK -->
-
             <div class="schedule-step">
 
                 <label for="weekSelector">
@@ -1168,8 +1160,6 @@ th{
 
             </div>
 
-
-            <!-- DAY -->
 
             <div class="schedule-step">
 
@@ -1194,8 +1184,6 @@ th{
         </div>
 
 
-        <!-- PATH -->
-
         <div
             class="schedule-path"
             id="schedulePath"
@@ -1209,10 +1197,6 @@ th{
 
     </div>
 
-
-    <!-- =====================================================
-         MONTH RESULT
-    ====================================================== -->
 
     <div
         class="card"
@@ -1234,20 +1218,12 @@ th{
     </div>
 
 
-    <!-- =====================================================
-         WEEK RESULT
-    ====================================================== -->
-
     <div
         class="card"
         id="weeklyScheduleResult"
         style="display:none;"
     ></div>
 
-
-    <!-- =====================================================
-         DAY RESULT
-    ====================================================== -->
 
     <div
         class="card"
@@ -1325,10 +1301,6 @@ th{
 
     </div>
 
-
-    <!-- =====================================================
-         DAILY FORM
-    ====================================================== -->
 
     <div class="card">
 
@@ -1468,6 +1440,10 @@ th{
                 </div>
 
 
+                <!-- =================================================
+                     PRIORITY A/B/C
+                ================================================== -->
+
                 <div class="form-group">
 
                     <label for="workPriority">
@@ -1483,16 +1459,16 @@ th{
                             Select Priority
                         </option>
 
-                        <option value="High">
-                            High
+                        <option value="A">
+                            A - Critical
                         </option>
 
-                        <option value="Medium">
-                            Medium
+                        <option value="B">
+                            B - Important
                         </option>
 
-                        <option value="Low">
-                            Low
+                        <option value="C">
+                            C - Normal
                         </option>
 
                     </select>
@@ -1709,7 +1685,6 @@ th{
 
 /* =========================================================
    GOOGLE SHEETS CONFIGURATION
-   DO NOT CHANGE
 ========================================================= */
 
 const GOOGLE_SCRIPT_URL =
@@ -2123,6 +2098,101 @@ updateClock();
 
 
 /* =========================================================
+   GET EQUIPMENT PRIORITY
+========================================================= */
+
+function getEquipmentPriority(
+    equipment
+){
+
+    /* A = Critical */
+
+    const priorityA = [
+
+        "Thermal CTP",
+
+        "Compressor",
+
+        "Generator",
+
+        "Pump System",
+
+        "Tecnotrans"
+
+    ];
+
+
+    if(
+        priorityA.includes(
+            equipment
+        )
+    ){
+
+        return "A";
+
+    }
+
+
+    /* B = Important */
+
+    const priorityB = [
+
+        "Coldset Weboffset (TBO1)",
+
+        "Coldset Weboffset (TBO2)",
+
+        "Heatset Weboffset (TBO03)",
+
+        "Five Unit + Coater + Dryer Sheet Feed",
+
+        "Four Unit, A1 Size Sheet Feed",
+
+        "Two Unit, B1 Size Sheet Feed",
+
+        "Full and Spot Automatic UV Laminating",
+
+        "Online Perfect Binding Machine with Three Knife",
+
+        "Offline Perfect Binding with PUR",
+
+        "Online Stitching Machine with Three Knife",
+
+        "Two Heads Saddle Stitching",
+
+        "Single Heads Saddle Stitching",
+
+        "Digital Three Knife Cutting",
+
+        "Automatic Book Sewing Machine",
+
+        "Automatic Die Cutting, Foil Stamping and Embossing",
+
+        "Automatic Plastic Laminating",
+
+        "Air Dryer"
+
+    ];
+
+
+    if(
+        priorityB.includes(
+            equipment
+        )
+    ){
+
+        return "B";
+
+    }
+
+
+    /* C = Normal */
+
+    return "C";
+
+}
+
+
+/* =========================================================
    EQUIPMENT TABLE
 ========================================================= */
 
@@ -2151,18 +2221,10 @@ function loadEquipmentTable(){
                 : "Utility";
 
 
-            let priority = "B";
-
-
-            if(
-                equipment === "Generator" ||
-                equipment === "Compressor" ||
-                equipment === "Thermal CTP"
-            ){
-
-                priority = "A";
-
-            }
+            const priority =
+                getEquipmentPriority(
+                    equipment
+                );
 
 
             html += `
@@ -2182,7 +2244,13 @@ function loadEquipmentTable(){
                     </td>
 
                     <td>
-                        ${priority}
+
+                        <span
+                            class="priority-${priority}"
+                        >
+                            ${priority}
+                        </span>
+
                     </td>
 
                 </tr>
@@ -2354,8 +2422,6 @@ function monthChanged(){
         );
 
 
-    /* Reset Week */
-
     weekSelector.innerHTML = `
 
         <option value="">
@@ -2364,8 +2430,6 @@ function monthChanged(){
 
     `;
 
-
-    /* Reset Day */
 
     daySelector.innerHTML = `
 
@@ -2421,10 +2485,6 @@ function monthChanged(){
     const machines =
         monthGroups[month] || [];
 
-
-    /* -------------------------------------------------------
-       LOAD WEEKS
-    ------------------------------------------------------- */
 
     weeks.forEach(
         function(week){
@@ -2718,13 +2778,6 @@ function getWeekMachines(
     }
 
 
-    /*
-     * The machines are distributed across
-     * Week 1–4 automatically.
-     *
-     * This creates a balanced schedule.
-     */
-
     const weekIndex =
         weeks.indexOf(
             week
@@ -2987,14 +3040,6 @@ function getDayMachines(
         );
 
 
-    /*
-     * Distribute the week's machines
-     * across Monday-Sunday.
-     *
-     * If there are fewer machines than days,
-     * some days will have no machine.
-     */
-
     const assigned = [];
 
 
@@ -3014,12 +3059,6 @@ function getDayMachines(
         }
     );
 
-
-    /*
-     * To ensure every day can be used,
-     * distribute machines sequentially
-     * when the week contains fewer machines.
-     */
 
     if(
         assigned.length === 0 &&
@@ -3131,6 +3170,8 @@ function displayDayMachines(
 
                         <th>Responsible</th>
 
+                        <th>Priority</th>
+
                         <th>Status</th>
 
                     </tr>
@@ -3147,6 +3188,12 @@ function displayDayMachines(
 
             const technician =
                 getSuggestedTechnician(
+                    machine
+                );
+
+
+            const priority =
+                getEquipmentPriority(
                     machine
                 );
 
@@ -3174,6 +3221,17 @@ function displayDayMachines(
                     </td>
 
                     <td>
+
+                        <span
+                            class="priority-${priority}"
+                        >
+                            ${priority}
+                        </span>
+
+                    </td>
+
+                    <td>
+
                         <span
                             style="
                                 background:#fff8e1;
@@ -3185,6 +3243,7 @@ function displayDayMachines(
                         >
                             Planned
                         </span>
+
                     </td>
 
                 </tr>
@@ -3223,10 +3282,15 @@ function getSuggestedTechnician(
     const electricalMachines = [
 
         "Thermal CTP",
+
         "Compressor",
+
         "Pump System",
+
         "Generator",
+
         "Air Dryer",
+
         "Tecnotrans"
 
     ];
@@ -3617,7 +3681,7 @@ function escapeHTML(
 
 
 /* =========================================================
-   PRIORITY CLASS
+   PRIORITY CLASS A/B/C
 ========================================================= */
 
 function getPriorityClass(
@@ -3627,26 +3691,28 @@ function getPriorityClass(
     const value =
         String(
             priority || ""
-        ).toLowerCase();
+        )
+        .trim()
+        .toUpperCase();
 
 
-    if(value === "high"){
+    if(value === "A"){
 
-        return "priority-high";
-
-    }
-
-
-    if(value === "medium"){
-
-        return "priority-medium";
+        return "priority-A";
 
     }
 
 
-    if(value === "low"){
+    if(value === "B"){
 
-        return "priority-low";
+        return "priority-B";
+
+    }
+
+
+    if(value === "C"){
+
+        return "priority-C";
 
     }
 
@@ -3658,7 +3724,6 @@ function getPriorityClass(
 
 /* =========================================================
    LOAD GOOGLE SHEET DATA
-   SAME GOOGLE SCRIPT
 ========================================================= */
 
 async function loadGoogleSheetData(){
@@ -3680,7 +3745,7 @@ async function loadGoogleSheetData(){
 
 
     status.textContent =
-        "Loading  records...";
+        "Loading records...";
 
 
     try{
@@ -3729,7 +3794,7 @@ async function loadGoogleSheetData(){
 
             throw new Error(
                 data.error ||
-                " returned an error."
+                "Google Sheet returned an error."
             );
 
         }
@@ -3745,11 +3810,7 @@ async function loadGoogleSheetData(){
 
 
         status.textContent =
-            "Galatoomaa:-" +
-
-            (data.records || []).length +
-
-            " record(s) loaded.";
+            "Galatoomaa";
 
     }
 
@@ -3782,7 +3843,7 @@ async function loadGoogleSheetData(){
                     "
                 >
 
-                     records could not be loaded.
+                    Records could not be loaded.
 
                 </td>
 
@@ -3845,9 +3906,17 @@ function displayGoogleSheetRecords(
     records.forEach(
         function(record,index){
 
+            const priority =
+                String(
+                    record.priority || ""
+                )
+                .trim()
+                .toUpperCase();
+
+
             const priorityClass =
                 getPriorityClass(
-                    record.priority
+                    priority
                 );
 
 
@@ -3896,7 +3965,7 @@ function displayGoogleSheetRecords(
                         >
 
                             ${escapeHTML(
-                                record.priority
+                                priority
                             )}
 
                         </span>
@@ -3925,7 +3994,6 @@ function displayGoogleSheetRecords(
 
 /* =========================================================
    SAVE TO GOOGLE SHEETS
-   DO NOT CHANGE
 ========================================================= */
 
 async function saveToGoogleSheets(
@@ -3992,11 +4060,6 @@ async function saveToGoogleSheets(
 
         );
 
-
-        /*
-         * Automatically load the new
-         * Google Sheet record.
-         */
 
         setTimeout(
             function(){
@@ -4101,10 +4164,6 @@ function setupDailyForm(){
             }
 
 
-            /*
-             * Keep local copy.
-             */
-
             let localRecords =
                 JSON.parse(
 
@@ -4134,10 +4193,6 @@ function setupDailyForm(){
 
             );
 
-
-            /*
-             * Send to Google Sheets.
-             */
 
             await saveToGoogleSheets(
                 record
@@ -4241,17 +4296,8 @@ document.addEventListener(
         setupDailyForm();
 
 
-        /*
-         * Automatically connect to Google Sheet.
-         * No refresh button is required.
-         */
-
         loadGoogleSheetData();
 
-
-        /*
-         * Prepare schedule.
-         */
 
         updateSchedulePath();
 
@@ -4264,3 +4310,4 @@ document.addEventListener(
 </body>
 
 </html>
+```
