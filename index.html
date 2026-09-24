@@ -3680,7 +3680,7 @@ async function loadGoogleSheetData(){
 
 
     status.textContent =
-        "Loading Google Sheet records...";
+        "Loading  records...";
 
 
     try{
@@ -3729,7 +3729,7 @@ async function loadGoogleSheetData(){
 
             throw new Error(
                 data.error ||
-                "Google Sheet returned an error."
+                " returned an error."
             );
 
         }
@@ -3765,7 +3765,7 @@ async function loadGoogleSheetData(){
 
 
         status.textContent =
-            "✗ Google Sheet connection failed: " +
+            "connection failed: " +
             error.message;
 
 
@@ -3782,7 +3782,7 @@ async function loadGoogleSheetData(){
                     "
                 >
 
-                    Google Sheet records could not be loaded.
+                     records could not be loaded.
 
                 </td>
 
@@ -4012,7 +4012,7 @@ async function saveToGoogleSheets(
     catch(error){
 
         console.error(
-            "Google Sheet save error:",
+            "save error:",
             error
         );
 
