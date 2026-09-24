@@ -1,13 +1,3375 @@
-<div class="card">
+<!DOCTYPE html>
+<html lang="en">
 
-<h3 class="card-title">
-Saved Daily Maintenance Records
-</h3>
+<head>
 
-<div
-class="table-container"
-id="dailyRecordsContainer">
+<meta charset="UTF-8">
 
-</div>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-</div>
+<title>
+MELBA PRINTING PUBLISHING & PACKAGING SC. - Technical Maintenance
+</title>
+
+<style>
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f1f4f8;
+    color:#263238;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    background:linear-gradient(
+        135deg,
+        #0d47a1,
+        #1565c0,
+        #00897b
+    );
+
+    color:white;
+    padding:22px 30px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.15);
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.header-content{
+    max-width:1500px;
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:20px;
+}
+
+.company-title{
+    margin:0;
+    font-size:25px;
+    font-weight:700;
+}
+
+.department-title{
+    margin:6px 0 0;
+    font-size:15px;
+    opacity:.9;
+}
+
+.clock{
+    font-size:17px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navbar{
+    background:#ffffff;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.08);
+
+    position:sticky;
+    top:86px;
+    z-index:900;
+}
+
+.nav-container{
+    max-width:1500px;
+    margin:auto;
+
+    display:flex;
+    overflow-x:auto;
+}
+
+.nav-link{
+    border:none;
+    background:none;
+
+    padding:16px 18px;
+
+    font-size:14px;
+    font-weight:bold;
+
+    color:#37474f;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    border-bottom:3px solid transparent;
+
+    transition:.2s;
+}
+
+.nav-link:hover{
+    background:#eef5ff;
+    color:#0d47a1;
+}
+
+.nav-link.active{
+    color:#0d47a1;
+    border-bottom-color:#0d47a1;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.container{
+    max-width:1500px;
+    margin:auto;
+    padding:25px;
+}
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+.section-title{
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    margin:0;
+    color:#0d47a1;
+}
+
+.section-title p{
+    margin:7px 0 0;
+    color:#607d8b;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card{
+    background:white;
+
+    border-radius:12px;
+
+    padding:22px;
+
+    margin-bottom:22px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    margin-top:0;
+    color:#263238;
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+
+    margin-bottom:25px;
+}
+
+.dashboard-card{
+    background:white;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
+}
+
+.dashboard-card h4{
+    margin:0 0 10px;
+    color:#607d8b;
+}
+
+.dashboard-number{
+    font-size:28px;
+    font-weight:bold;
+    color:#0d47a1;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(250px,1fr));
+
+    gap:18px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-weight:bold;
+    margin-bottom:7px;
+    color:#37474f;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+
+    padding:11px 12px;
+
+    border:1px solid #cfd8dc;
+
+    border-radius:7px;
+
+    font-size:14px;
+
+    background:white;
+
+    outline:none;
+
+    transition:.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#1565c0;
+
+    box-shadow:
+        0 0 0 2px rgba(21,101,192,.1);
+}
+
+textarea{
+    resize:vertical;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+    border:none;
+
+    border-radius:7px;
+
+    padding:11px 18px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.btn-primary{
+    background:#1565c0;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#0d47a1;
+}
+
+.btn-secondary{
+    background:#eceff1;
+    color:#37474f;
+}
+
+.btn-secondary:hover{
+    background:#cfd8dc;
+}
+
+.btn-success{
+    background:#00897b;
+    color:white;
+}
+
+.btn-danger{
+    background:#d32f2f;
+    color:white;
+}
+
+.btn-warning{
+    background:#f9a825;
+    color:white;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:900px;
+
+    background:white;
+}
+
+thead{
+    background:#0d47a1;
+    color:white;
+}
+
+th,
+td{
+    padding:11px;
+
+    border-bottom:1px solid #e0e0e0;
+
+    text-align:left;
+
+    font-size:13px;
+
+    vertical-align:top;
+}
+
+tbody tr:hover{
+    background:#f7faff;
+}
+
+th{
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   PRIORITY
+========================================================= */
+
+.priority-high{
+    display:inline-block;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    background:#ffebee;
+
+    color:#c62828;
+
+    font-weight:bold;
+}
+
+.priority-medium{
+    display:inline-block;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    background:#fff8e1;
+
+    color:#ef6c00;
+
+    font-weight:bold;
+}
+
+.priority-low{
+    display:inline-block;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    background:#e8f5e9;
+
+    color:#2e7d32;
+
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-box{
+    padding:12px 15px;
+
+    border-radius:8px;
+
+    margin-bottom:15px;
+
+    font-weight:bold;
+}
+
+.status-loading{
+    background:#e3f2fd;
+    color:#1565c0;
+}
+
+.status-success{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+.status-error{
+    background:#ffebee;
+    color:#c62828;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box{
+    margin-bottom:15px;
+}
+
+.search-box input{
+    max-width:400px;
+}
+
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+}
+
+.month-card{
+    background:white;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.07);
+
+    border-left:5px solid #1565c0;
+}
+
+.month-card h4{
+    margin-top:0;
+    color:#0d47a1;
+}
+
+.month-card ul{
+    margin:10px 0 0;
+    padding-left:20px;
+}
+
+.month-card li{
+    margin-bottom:5px;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.notification-box{
+    padding:15px;
+
+    background:#fff8e1;
+
+    border-left:5px solid #f9a825;
+
+    border-radius:8px;
+
+    margin-bottom:15px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    z-index:5000;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-content{
+    background:white;
+
+    width:100%;
+    max-width:450px;
+
+    border-radius:12px;
+
+    padding:25px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+}
+
+.modal-content h3{
+    margin-top:0;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    text-align:center;
+
+    padding:25px;
+
+    color:#607d8b;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .header-content{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .navbar{
+        top:130px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .calendar-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:15px;
+    }
+
+    .company-title{
+        font-size:19px;
+    }
+
+    .clock{
+        font-size:14px;
+    }
+
+    .calendar-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+.hidden{
+    display:none !important;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="header-content">
+
+        <div>
+
+            <h1 class="company-title">
+                MELBA PRINTING PUBLISHING & PACKAGING SC.
+            </h1>
+
+            <p class="department-title">
+                Electrical & Mechanical Technical Department
+                |
+                Maintenance Management & Preventive Maintenance Planning System
+            </p>
+
+        </div>
+
+
+        <div
+            class="clock"
+            id="liveClock"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <button
+            class="nav-link active"
+            onclick="showSection('equipment',this)"
+        >
+            Equipment
+        </button>
+
+        <button
+            class="nav-link"
+            onclick="showSection('annualPM',this)"
+        >
+            Annual PM
+        </button>
+
+        <button
+            class="nav-link"
+            onclick="showSection('monthlyPM',this)"
+        >
+            Monthly PM
+        </button>
+
+        <button
+            class="nav-link"
+            onclick="showSection('weeklyPM',this)"
+        >
+            Weekly PM
+        </button>
+
+        <button
+            class="nav-link"
+            onclick="showSection('dailyWork',this)"
+        >
+            Daily Work
+        </button>
+
+        <button
+            class="nav-link"
+            onclick="showSection('notification',this)"
+        >
+            Notification
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     MAIN CONTAINER
+========================================================= -->
+
+<main class="container">
+
+
+<!-- =========================================================
+     EQUIPMENT REGISTER
+========================================================= -->
+
+<section
+    class="section active"
+    id="equipment"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Equipment Register
+        </h2>
+
+        <p>
+            Production and utility equipment registered
+            for maintenance planning.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div
+            style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:15px;
+                flex-wrap:wrap;
+            "
+        >
+
+            <div>
+
+                <h3>
+                    Equipment List
+                </h3>
+
+                <p
+                    style="
+                        color:#607d8b;
+                        margin-bottom:0;
+                    "
+                >
+                    Total registered equipment:
+                    <strong id="equipmentCount">
+                        32
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="equipmentSearch"
+                    placeholder="Search equipment..."
+                    oninput="filterEquipment()"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No.</th>
+
+                        <th>Equipment</th>
+
+                        <th>Category</th>
+
+                        <th>Priority</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="equipmentBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ANNUAL PM
+========================================================= -->
+
+<section
+    class="section"
+    id="annualPM"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Annual Preventive Maintenance Plan
+        </h2>
+
+        <p>
+            July – June maintenance planning.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Annual PM Objective
+        </h3>
+
+        <p>
+            The annual preventive maintenance plan is designed
+            to maintain equipment reliability, reduce unexpected
+            breakdowns, improve production efficiency, maintain
+            safety, and ensure proper utilization of maintenance
+            resources.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Annual Maintenance Schedule
+        </h3>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Equipment</th>
+
+                        <th>Group</th>
+
+                        <th>PM Months</th>
+
+                        <th>Frequency</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="annualPMBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MONTHLY PM
+========================================================= -->
+
+<section
+    class="section"
+    id="monthlyPM"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Monthly Preventive Maintenance
+        </h2>
+
+        <p>
+            Select a month to view planned equipment.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="form-group">
+
+            <label for="monthSelector">
+                Select Month
+            </label>
+
+            <select
+                id="monthSelector"
+                onchange="displayMonthlyPM()"
+            >
+
+                <option value="July">
+                    July
+                </option>
+
+                <option value="August">
+                    August
+                </option>
+
+                <option value="September">
+                    September
+                </option>
+
+                <option value="October">
+                    October
+                </option>
+
+                <option value="November">
+                    November
+                </option>
+
+                <option value="December">
+                    December
+                </option>
+
+                <option value="January">
+                    January
+                </option>
+
+                <option value="February">
+                    February
+                </option>
+
+                <option value="March">
+                    March
+                </option>
+
+                <option value="April">
+                    April
+                </option>
+
+                <option value="May">
+                    May
+                </option>
+
+                <option value="June">
+                    June
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="card"
+        id="monthlyPMResult"
+    ></div>
+
+</section>
+
+
+<!-- =========================================================
+     WEEKLY PM
+========================================================= -->
+
+<section
+    class="section"
+    id="weeklyPM"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Weekly Preventive Maintenance
+        </h2>
+
+        <p>
+            Weekly maintenance activities and inspection tasks.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Weekly Maintenance Checklist
+        </h3>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No.</th>
+
+                        <th>Activity</th>
+
+                        <th>Responsible Team</th>
+
+                        <th>Frequency</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>1</td>
+
+                        <td>
+                            Check lubrication points
+                        </td>
+
+                        <td>
+                            Mechanical Team
+                        </td>
+
+                        <td>
+                            Weekly
+                        </td>
+
+                        <td>
+                            Pending
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>2</td>
+
+                        <td>
+                            Check electrical panels
+                        </td>
+
+                        <td>
+                            Electrical Team
+                        </td>
+
+                        <td>
+                            Weekly
+                        </td>
+
+                        <td>
+                            Pending
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>3</td>
+
+                        <td>
+                            Inspect belts and chains
+                        </td>
+
+                        <td>
+                            Mechanical Team
+                        </td>
+
+                        <td>
+                            Weekly
+                        </td>
+
+                        <td>
+                            Pending
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>4</td>
+
+                        <td>
+                            Inspect safety devices
+                        </td>
+
+                        <td>
+                            Technical Team
+                        </td>
+
+                        <td>
+                            Weekly
+                        </td>
+
+                        <td>
+                            Pending
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>5</td>
+
+                        <td>
+                            Check compressor and air system
+                        </td>
+
+                        <td>
+                            Utility Team
+                        </td>
+
+                        <td>
+                            Weekly
+                        </td>
+
+                        <td>
+                            Pending
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DAILY MAINTENANCE WORK
+========================================================= -->
+
+<section
+    class="section"
+    id="dailyWork"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Daily Maintenance Work
+        </h2>
+
+        <p>
+            Record and monitor daily technical maintenance activities.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         DAILY FORM
+    ====================================================== -->
+
+    <div class="card">
+
+        <h3>
+            Daily Maintenance Entry
+        </h3>
+
+
+        <form id="dailyWorkForm">
+
+            <div class="form-grid">
+
+
+                <!-- DATE -->
+
+                <div class="form-group">
+
+                    <label for="workDate">
+                        Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="workDate"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- TIME -->
+
+                <div class="form-group">
+
+                    <label for="workTime">
+                        Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="workTime"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EQUIPMENT -->
+
+                <div class="form-group">
+
+                    <label for="workEquipment">
+                        Equipment
+                    </label>
+
+                    <select
+                        id="workEquipment"
+                        required
+                    >
+
+                        <option value="">
+                            Select Equipment
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TECHNICIAN -->
+
+                <div class="form-group">
+
+                    <label for="workTechnician">
+                        Technician
+                    </label>
+
+                    <select
+                        id="workTechnician"
+                        required
+                    >
+
+                        <option value="">
+                            Select Technician
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- WORK TYPE -->
+
+                <div class="form-group">
+
+                    <label for="workType">
+                        Work Type
+                    </label>
+
+                    <select
+                        id="workType"
+                        required
+                    >
+
+                        <option value="">
+                            Select Work Type
+                        </option>
+
+                        <option>
+                            Preventive Maintenance
+                        </option>
+
+                        <option>
+                            Daily Inspection
+                        </option>
+
+                        <option>
+                            Breakdown Repair
+                        </option>
+
+                        <option>
+                            Corrective Maintenance
+                        </option>
+
+                        <option>
+                            Electrical Work
+                        </option>
+
+                        <option>
+                            Mechanical Work
+                        </option>
+
+                        <option>
+                            Lubrication
+                        </option>
+
+                        <option>
+                            Cleaning
+                        </option>
+
+                        <option>
+                            Modification
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PRIORITY -->
+
+                <div class="form-group">
+
+                    <label for="workPriority">
+                        Priority
+                    </label>
+
+                    <select
+                        id="workPriority"
+                        required
+                    >
+
+                        <option value="">
+                            Select Priority
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div
+                    class="form-group"
+                    style="grid-column:1/-1;"
+                >
+
+                    <label for="workDescription">
+                        Maintenance Description
+                    </label>
+
+                    <textarea
+                        id="workDescription"
+                        rows="4"
+                        placeholder="Enter maintenance work performed..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div
+                style="
+                    display:flex;
+                    gap:10px;
+                    margin-top:20px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Save Daily Work
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="clearDailyForm()"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =====================================================
+         GOOGLE SHEET STATUS
+    ====================================================== -->
+
+    <div
+        id="googleSheetStatus"
+        class="status-box status-loading"
+    >
+        Loading Google Sheet records...
+    </div>
+
+
+    <!-- =====================================================
+         GOOGLE SHEET RECORDS
+    ====================================================== -->
+
+    <div class="card">
+
+        <div
+            style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:10px;
+                flex-wrap:wrap;
+                margin-bottom:15px;
+            "
+        >
+
+            <div>
+
+                <h3 style="margin:0;">
+                    Daily Maintenance Records
+                </h3>
+
+                <small style="color:#607d8b;">
+                    Records are automatically loaded from Google Sheets.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No.</th>
+
+                        <th>Date</th>
+
+                        <th>Time</th>
+
+                        <th>Equipment</th>
+
+                        <th>Technician</th>
+
+                        <th>Work Type</th>
+
+                        <th>Priority</th>
+
+                        <th>Description</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="dailyRecordsBody">
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            style="text-align:center;padding:25px;"
+                        >
+                            Loading Google Sheet records...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NOTIFICATION
+========================================================= -->
+
+<section
+    class="section"
+    id="notification"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Maintenance Notification
+        </h2>
+
+        <p>
+            Maintenance schedule notification and browser alerts.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="notification-box">
+
+            <strong>
+                Maintenance Reminder
+            </strong>
+
+            <p>
+                Scheduled maintenance activities can generate
+                browser notifications when notification permission
+                is enabled.
+            </p>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            onclick="requestNotificationPermission()"
+        >
+            Enable Notifications
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    MELBA PRINTING PUBLISHING & PACKAGING SC.
+    <br>
+
+    Technical Department —
+    Maintenance Management System
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   GOOGLE SHEETS CONFIGURATION
+========================================================= */
+
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxDh5JSpM8AA-yRLa4CdVOk97eghIeFcBMHsbc5m7jFCSB5gRvO6w8P8KQPj06FC7TR/exec";
+
+const GOOGLE_TOKEN =
+"MELBA2026";
+
+
+/* =========================================================
+   EQUIPMENT LIST
+========================================================= */
+
+const equipmentList = [
+
+    "Thermal CTP",
+
+    "Coldset Weboffset (TBO1)",
+
+    "Coldset Weboffset (TBO2)",
+
+    "Heatset Weboffset (TBO03)",
+
+    "Five Unit + Coater + Dryer Sheet Feed",
+
+    "Four Unit, A1 Size Sheet Feed",
+
+    "Two Unit, B1 Size Sheet Feed",
+
+    "One Unit, A3 Size with Perforating and Numbering Sheet Feed",
+
+    "Full and Spot Automatic UV Laminating",
+
+    "Online Perfect Binding Machine with Three Knife",
+
+    "Online Stitching Machine with Three Knife",
+
+    "Offline Perfect Binding with PUR",
+
+    "Two Heads Saddle Stitching",
+
+    "Single Heads Saddle Stitching",
+
+    "Digital Single Knife",
+
+    "Digital Three Knife Cutting",
+
+    "Folding Machine",
+
+    "Automatic Spiral Binding",
+
+    "Automatic Die Cutting, Foil Stamping and Embossing",
+
+    "Automatic Book Sewing Machine",
+
+    "Punching and Perforating Machine",
+
+    "Automatic Plastic Laminating",
+
+    "Pressing Machine",
+
+    "Automatic Eyeleting Machine",
+
+    "Reel Paper to Sheet Feed Cutting Machine",
+
+    "Paper Drilling Machine",
+
+    "Horizontal Balling Machine",
+
+    "Compressor",
+
+    "Pump System",
+
+    "Generator",
+
+    "Air Dryer",
+
+    "Tecnotrans"
+
+];
+
+
+/* =========================================================
+   EQUIPMENT GROUPS
+========================================================= */
+
+const group1 = [
+
+    "Thermal CTP",
+
+    "Coldset Weboffset (TBO2)",
+
+    "Five Unit + Coater + Dryer Sheet Feed",
+
+    "Two Unit, B1 Size Sheet Feed",
+
+    "Full and Spot Automatic UV Laminating",
+
+    "Offline Perfect Binding with PUR",
+
+    "Two Heads Saddle Stitching",
+
+    "Digital Single Knife",
+
+    "Folding Machine",
+
+    "Automatic Spiral Binding",
+
+    "Automatic Die Cutting, Foil Stamping and Embossing",
+
+    "Pressing Machine",
+
+    "Automatic Eyeleting Machine",
+
+    "Reel Paper to Sheet Feed Cutting Machine",
+
+    "Compressor",
+
+    "Pump System"
+
+];
+
+
+const group2 = [
+
+    "Coldset Weboffset (TBO1)",
+
+    "Heatset Weboffset (TBO03)",
+
+    "Four Unit, A1 Size Sheet Feed",
+
+    "One Unit, A3 Size with Perforating and Numbering Sheet Feed",
+
+    "Online Perfect Binding Machine with Three Knife",
+
+    "Online Stitching Machine with Three Knife",
+
+    "Single Heads Saddle Stitching",
+
+    "Digital Three Knife Cutting",
+
+    "Automatic Book Sewing Machine",
+
+    "Punching and Perforating Machine",
+
+    "Automatic Plastic Laminating",
+
+    "Paper Drilling Machine",
+
+    "Horizontal Balling Machine",
+
+    "Generator",
+
+    "Air Dryer",
+
+    "Tecnotrans"
+
+];
+
+
+/* =========================================================
+   TECHNICIANS
+========================================================= */
+
+const technicians = [
+
+    "Mechanical Team Leader",
+
+    "Senior Mechanic",
+
+    "Senior Electrician",
+
+    "Mechanic II",
+
+    "Electrician II",
+
+    "Junior Electrician",
+
+    "Junior Mechanic",
+
+    "Senior Machinist",
+
+    "Assistant Machinist",
+
+    "Tools Keeper"
+
+];
+
+
+/* =========================================================
+   SHOW SECTION
+========================================================= */
+
+function showSection(
+    sectionId,
+    button
+){
+
+    document
+        .querySelectorAll(".section")
+        .forEach(function(section){
+
+            section.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const section =
+        document.getElementById(
+            sectionId
+        );
+
+
+    if(section){
+
+        section.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-link")
+        .forEach(function(link){
+
+            link.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    if(button){
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    if(sectionId === "monthlyPM"){
+
+        displayMonthlyPM();
+
+    }
+
+}
+
+
+/* =========================================================
+   LIVE CLOCK
+========================================================= */
+
+function updateClock(){
+
+    const now =
+        new Date();
+
+
+    const date =
+        now.toLocaleDateString(
+            "en-GB",
+            {
+                day:"2-digit",
+                month:"short",
+                year:"numeric"
+            }
+        );
+
+
+    const time =
+        now.toLocaleTimeString();
+
+
+    const clock =
+        document.getElementById(
+            "liveClock"
+        );
+
+
+    if(clock){
+
+        clock.textContent =
+            date + " | " + time;
+
+    }
+
+}
+
+
+setInterval(
+    updateClock,
+    1000
+);
+
+updateClock();
+
+
+/* =========================================================
+   LOAD EQUIPMENT TABLE
+========================================================= */
+
+function loadEquipmentTable(){
+
+    const body =
+        document.getElementById(
+            "equipmentBody"
+        );
+
+
+    if(!body){
+        return;
+    }
+
+
+    let html = "";
+
+
+    equipmentList.forEach(
+        function(equipment,index){
+
+            const category =
+                index < 27
+                ? "Production"
+                : "Utility";
+
+
+            let priority = "B";
+
+
+            if(
+                equipment === "Generator" ||
+                equipment === "Compressor" ||
+                equipment === "Thermal CTP"
+            ){
+
+                priority = "A";
+
+            }
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(equipment)}
+                    </td>
+
+                    <td>
+                        ${category}
+                    </td>
+
+                    <td>
+                        ${priority}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    body.innerHTML =
+        html;
+
+
+    const count =
+        document.getElementById(
+            "equipmentCount"
+        );
+
+
+    if(count){
+
+        count.textContent =
+            equipmentList.length;
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTER EQUIPMENT
+========================================================= */
+
+function filterEquipment(){
+
+    const input =
+        document.getElementById(
+            "equipmentSearch"
+        );
+
+
+    const value =
+        input
+        ? input.value.toLowerCase()
+        : "";
+
+
+    const body =
+        document.getElementById(
+            "equipmentBody"
+        );
+
+
+    if(!body){
+        return;
+    }
+
+
+    const rows =
+        body.querySelectorAll(
+            "tr"
+        );
+
+
+    rows.forEach(
+        function(row){
+
+            const text =
+                row.textContent
+                    .toLowerCase();
+
+
+            row.style.display =
+                text.includes(value)
+                ? ""
+                : "none";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ANNUAL PM
+========================================================= */
+
+function displayAnnualPM(){
+
+    const body =
+        document.getElementById(
+            "annualPMBody"
+        );
+
+
+    if(!body){
+        return;
+    }
+
+
+    let html = "";
+
+
+    equipmentList.forEach(
+        function(equipment){
+
+            const group =
+                group1.includes(equipment)
+                ? "Group 1"
+                : "Group 2";
+
+
+            const months =
+                group === "Group 1"
+
+                ? "Aug, Nov, Dec, Mar, Apr"
+
+                : "Sep, Oct, Jan, Feb, May, Jun";
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(equipment)}
+                    </td>
+
+                    <td>
+                        ${group}
+                    </td>
+
+                    <td>
+                        ${months}
+                    </td>
+
+                    <td>
+                        Preventive Maintenance
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    body.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   MONTHLY PM
+========================================================= */
+
+function displayMonthlyPM(){
+
+    const monthSelector =
+        document.getElementById(
+            "monthSelector"
+        );
+
+
+    const result =
+        document.getElementById(
+            "monthlyPMResult"
+        );
+
+
+    if(
+        !monthSelector ||
+        !result
+    ){
+
+        return;
+
+    }
+
+
+    const month =
+        monthSelector.value;
+
+
+    let group = "";
+
+
+    if(
+        month === "August" ||
+        month === "November" ||
+        month === "December" ||
+        month === "March" ||
+        month === "April"
+    ){
+
+        group = "Group 1";
+
+    }
+
+    else if(
+        month === "September" ||
+        month === "October" ||
+        month === "January" ||
+        month === "February" ||
+        month === "May" ||
+        month === "June"
+    ){
+
+        group = "Group 2";
+
+    }
+
+
+    let machines = [];
+
+
+    if(group === "Group 1"){
+
+        machines =
+            group1;
+
+    }
+
+    else if(group === "Group 2"){
+
+        machines =
+            group2;
+
+    }
+
+
+    if(machines.length === 0){
+
+        result.innerHTML = `
+
+            <h3>
+                ${month}
+            </h3>
+
+            <p>
+                No PM group assigned for this month.
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <h3>
+            ${month} — ${group}
+        </h3>
+
+        <p>
+            Planned preventive maintenance equipment:
+        </p>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No.</th>
+
+                        <th>Equipment</th>
+
+                        <th>PM Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+    `;
+
+
+    machines.forEach(
+        function(machine,index){
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(machine)}
+                    </td>
+
+                    <td>
+                        Planned
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+
+    result.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   TECHNICIAN DROPDOWN
+========================================================= */
+
+function loadTechnicians(){
+
+    const select =
+        document.getElementById(
+            "workTechnician"
+        );
+
+
+    if(!select){
+        return;
+    }
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select Technician
+        </option>
+
+    `;
+
+
+    technicians.forEach(
+        function(technician){
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                technician;
+
+
+            option.textContent =
+                technician;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EQUIPMENT DROPDOWN
+========================================================= */
+
+function loadEquipmentDropdown(){
+
+    const select =
+        document.getElementById(
+            "workEquipment"
+        );
+
+
+    if(!select){
+        return;
+    }
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select Equipment
+        </option>
+
+    `;
+
+
+    equipmentList.forEach(
+        function(equipment){
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                equipment;
+
+
+            option.textContent =
+                equipment;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOCAL DATE
+========================================================= */
+
+function getLocalDate(){
+
+    const now =
+        new Date();
+
+
+    const year =
+        now.getFullYear();
+
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================================
+   LOCAL TIME
+========================================================= */
+
+function getLocalTime(){
+
+    const now =
+        new Date();
+
+
+    const hours =
+        String(
+            now.getHours()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const minutes =
+        String(
+            now.getMinutes()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return `${hours}:${minutes}`;
+
+}
+
+
+/* =========================================================
+   CLEAR DAILY FORM
+========================================================= */
+
+function clearDailyForm(){
+
+    const form =
+        document.getElementById(
+            "dailyWorkForm"
+        );
+
+
+    if(form){
+
+        form.reset();
+
+    }
+
+
+    const date =
+        document.getElementById(
+            "workDate"
+        );
+
+
+    const time =
+        document.getElementById(
+            "workTime"
+        );
+
+
+    if(date){
+
+        date.value =
+            getLocalDate();
+
+    }
+
+
+    if(time){
+
+        time.value =
+            getLocalTime();
+
+    }
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   PRIORITY CLASS
+========================================================= */
+
+function getPriorityClass(
+    priority
+){
+
+    const value =
+        String(
+            priority || ""
+        ).toLowerCase();
+
+
+    if(value === "high"){
+
+        return "priority-high";
+
+    }
+
+
+    if(value === "medium"){
+
+        return "priority-medium";
+
+    }
+
+
+    if(value === "low"){
+
+        return "priority-low";
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   LOAD GOOGLE SHEET RECORDS
+   AUTOMATICALLY
+========================================================= */
+
+async function loadGoogleSheetData(){
+
+    const status =
+        document.getElementById(
+            "googleSheetStatus"
+        );
+
+
+    const tbody =
+        document.getElementById(
+            "dailyRecordsBody"
+        );
+
+
+    if(status){
+
+        status.className =
+            "status-box status-loading";
+
+
+        status.textContent =
+            "Loading Google Sheet records...";
+
+    }
+
+
+    if(tbody){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                    "
+                >
+
+                    Loading Google Sheet records...
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    try{
+
+        const url =
+            GOOGLE_SCRIPT_URL +
+
+            "?action=getDailyMaintenance" +
+
+            "&token=" +
+
+            encodeURIComponent(
+                GOOGLE_TOKEN
+            ) +
+
+            "&t=" +
+
+            Date.now();
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.success){
+
+            throw new Error(
+                data.error ||
+                "Google Sheet returned an error."
+            );
+
+        }
+
+
+        displayGoogleSheetRecords(
+            data.records || []
+        );
+
+
+        if(status){
+
+            status.className =
+                "status-box status-success";
+
+
+            status.textContent =
+                "✓ Google Sheet connected — " +
+
+                (data.records || []).length +
+
+                " record(s) loaded.";
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Google Sheet connection error:",
+            error
+        );
+
+
+        if(status){
+
+            status.className =
+                "status-box status-error";
+
+
+            status.textContent =
+                "✗ Google Sheet connection failed: " +
+                error.message;
+
+        }
+
+
+        if(tbody){
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        style="
+                            text-align:center;
+                            color:#c62828;
+                            padding:25px;
+                        "
+                    >
+
+                        Google Sheet records
+                        could not be loaded.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY GOOGLE SHEET RECORDS
+========================================================= */
+
+function displayGoogleSheetRecords(
+    records
+){
+
+    const tbody =
+        document.getElementById(
+            "dailyRecordsBody"
+        );
+
+
+    if(!tbody){
+        return;
+    }
+
+
+    if(
+        !records ||
+        records.length === 0
+    ){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                    "
+                >
+
+                    No maintenance records found
+                    in Google Sheets.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    records.forEach(
+        function(record,index){
+
+            const priorityClass =
+                getPriorityClass(
+                    record.priority
+                );
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.date
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.time
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.equipment
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.technician
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.workType
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="${priorityClass}"
+                        >
+
+                            ${escapeHTML(
+                                record.priority
+                            )}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.description
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    tbody.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   SAVE DAILY WORK TO GOOGLE SHEETS
+========================================================= */
+
+async function saveToGoogleSheets(
+    record
+){
+
+    const payload = {
+
+        token:
+            GOOGLE_TOKEN,
+
+        action:
+            "saveDailyMaintenance",
+
+        date:
+            record.date,
+
+        time:
+            record.time,
+
+        equipment:
+            record.equipment,
+
+        technician:
+            record.technician,
+
+        workType:
+            record.workType,
+
+        priority:
+            record.priority,
+
+        description:
+            record.description
+
+    };
+
+
+    try{
+
+        await fetch(
+
+            GOOGLE_SCRIPT_URL,
+
+            {
+
+                method:"POST",
+
+                mode:"no-cors",
+
+                headers:{
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+
+            }
+
+        );
+
+
+        /*
+         * Wait for Apps Script to finish
+         * writing the new row.
+         */
+
+        setTimeout(
+            function(){
+
+                loadGoogleSheetData();
+
+            },
+            1200
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Google Sheet save error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DAILY FORM SUBMIT
+========================================================= */
+
+function setupDailyForm(){
+
+    const form =
+        document.getElementById(
+            "dailyWorkForm"
+        );
+
+
+    if(!form){
+        return;
+    }
+
+
+    form.addEventListener(
+        "submit",
+        async function(event){
+
+            event.preventDefault();
+
+
+            const record = {
+
+                date:
+                    document.getElementById(
+                        "workDate"
+                    ).value,
+
+                time:
+                    document.getElementById(
+                        "workTime"
+                    ).value,
+
+                equipment:
+                    document.getElementById(
+                        "workEquipment"
+                    ).value,
+
+                technician:
+                    document.getElementById(
+                        "workTechnician"
+                    ).value,
+
+                workType:
+                    document.getElementById(
+                        "workType"
+                    ).value,
+
+                priority:
+                    document.getElementById(
+                        "workPriority"
+                    ).value,
+
+                description:
+                    document.getElementById(
+                        "workDescription"
+                    ).value.trim()
+
+            };
+
+
+            /* ------------------------------------------------
+               VALIDATION
+            ------------------------------------------------ */
+
+            if(
+
+                !record.date ||
+
+                !record.time ||
+
+                !record.equipment ||
+
+                !record.technician ||
+
+                !record.workType ||
+
+                !record.priority ||
+
+                !record.description
+
+            ){
+
+                alert(
+                    "Please complete all fields."
+                );
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------------
+               SAVE LOCAL COPY
+            ------------------------------------------------ */
+
+            let localRecords =
+                JSON.parse(
+
+                    localStorage.getItem(
+                        "daily_maintenance_jobs"
+                    ) || "[]"
+
+                );
+
+
+            record.id =
+                Date.now();
+
+
+            localRecords.unshift(
+                record
+            );
+
+
+            localStorage.setItem(
+
+                "daily_maintenance_jobs",
+
+                JSON.stringify(
+                    localRecords
+                )
+
+            );
+
+
+            /* ------------------------------------------------
+               SEND TO GOOGLE SHEETS
+            ------------------------------------------------ */
+
+            await saveToGoogleSheets(
+                record
+            );
+
+
+            /* ------------------------------------------------
+               MESSAGE
+            ------------------------------------------------ */
+
+            alert(
+                "Daily maintenance saved successfully."
+            );
+
+
+            /* ------------------------------------------------
+               CLEAR
+            ------------------------------------------------ */
+
+            clearDailyForm();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   BROWSER NOTIFICATION
+========================================================= */
+
+function requestNotificationPermission(){
+
+    if(
+        !("Notification" in window)
+    ){
+
+        alert(
+            "This browser does not support notifications."
+        );
+
+        return;
+
+    }
+
+
+    Notification
+        .requestPermission()
+        .then(
+            function(permission){
+
+                if(
+                    permission === "granted"
+                ){
+
+                    new Notification(
+                        "MELBA Maintenance System",
+                        {
+                            body:
+                            "Maintenance notifications are enabled."
+                        }
+                    );
+
+                }
+
+                else{
+
+                    alert(
+                        "Notification permission was not granted."
+                    );
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   INITIALIZE APPLICATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        /* Equipment table */
+
+        loadEquipmentTable();
+
+
+        /* Equipment dropdown */
+
+        loadEquipmentDropdown();
+
+
+        /* Technician dropdown */
+
+        loadTechnicians();
+
+
+        /* Date */
+
+        const date =
+            document.getElementById(
+                "workDate"
+            );
+
+
+        if(date){
+
+            date.value =
+                getLocalDate();
+
+        }
+
+
+        /* Time */
+
+        const time =
+            document.getElementById(
+                "workTime"
+            );
+
+
+        if(time){
+
+            time.value =
+                getLocalTime();
+
+        }
+
+
+        /* Annual PM */
+
+        displayAnnualPM();
+
+
+        /* Monthly PM */
+
+        displayMonthlyPM();
+
+
+        /* Daily form */
+
+        setupDailyForm();
+
+
+        /*
+         * IMPORTANT:
+         * Google Sheet data is loaded automatically.
+         *
+         * There is NO refresh button.
+         */
+
+        loadGoogleSheetData();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
