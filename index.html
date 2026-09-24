@@ -2992,4 +2992,1275 @@ function getDayMachines(
      * across Monday-Sunday.
      *
      * If there are fewer machines than days,
-     *
+     * some days will have no machine.
+     */
+
+    const assigned = [];
+
+
+    weekMachines.forEach(
+        function(machine,index){
+
+            if(
+                index % 7 === dayIndex
+            ){
+
+                assigned.push(
+                    machine
+                );
+
+            }
+
+        }
+    );
+
+
+    /*
+     * To ensure every day can be used,
+     * distribute machines sequentially
+     * when the week contains fewer machines.
+     */
+
+    if(
+        assigned.length === 0 &&
+        weekMachines.length > 0
+    ){
+
+        const fallbackIndex =
+            dayIndex %
+            weekMachines.length;
+
+
+        assigned.push(
+            weekMachines[
+                fallbackIndex
+            ]
+        );
+
+    }
+
+
+    return assigned;
+
+}
+
+
+/* =========================================================
+   DISPLAY DAY MACHINES
+========================================================= */
+
+function displayDayMachines(
+    month,
+    week,
+    day
+){
+
+    const result =
+        document.getElementById(
+            "dailyScheduleResult"
+        );
+
+
+    const machines =
+        getDayMachines(
+            month,
+            week,
+            day
+        );
+
+
+    result.style.display =
+        "block";
+
+
+    let html = `
+
+        <div class="schedule-summary">
+
+            <h3>
+                ${escapeHTML(month)}
+                —
+                ${escapeHTML(week)}
+                —
+                ${escapeHTML(day)}
+            </h3>
+
+            <p>
+                Machines assigned today:
+                <strong>${machines.length}</strong>
+            </p>
+
+        </div>
+
+    `;
+
+
+    if(machines.length === 0){
+
+        html += `
+
+            <p>
+                No machine assigned to this day.
+            </p>
+
+        `;
+
+        result.innerHTML =
+            html;
+
+        return;
+
+    }
+
+
+    html += `
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No.</th>
+
+                        <th>Machine</th>
+
+                        <th>Maintenance Type</th>
+
+                        <th>Responsible</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+    `;
+
+
+    machines.forEach(
+        function(machine,index){
+
+            const technician =
+                getSuggestedTechnician(
+                    machine
+                );
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(machine)}
+                    </td>
+
+                    <td>
+                        Preventive Maintenance
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            technician
+                        )}
+                    </td>
+
+                    <td>
+                        <span
+                            style="
+                                background:#fff8e1;
+                                color:#ef6c00;
+                                padding:5px 10px;
+                                border-radius:15px;
+                                font-weight:bold;
+                            "
+                        >
+                            Planned
+                        </span>
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+
+    result.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   SUGGEST TECHNICIAN
+========================================================= */
+
+function getSuggestedTechnician(
+    machine
+){
+
+    const electricalMachines = [
+
+        "Thermal CTP",
+        "Compressor",
+        "Pump System",
+        "Generator",
+        "Air Dryer",
+        "Tecnotrans"
+
+    ];
+
+
+    if(
+        electricalMachines.includes(
+            machine
+        )
+    ){
+
+        return "Senior Electrician";
+
+    }
+
+
+    if(
+        machine.includes(
+            "Weboffset"
+        )
+    ){
+
+        return "Senior Mechanic";
+
+    }
+
+
+    if(
+        machine.includes(
+            "Binding"
+        ) ||
+        machine.includes(
+            "Stitching"
+        )
+    ){
+
+        return "Senior Machinist";
+
+    }
+
+
+    return "Mechanic II";
+
+}
+
+
+/* =========================================================
+   UPDATE SCHEDULE PATH
+========================================================= */
+
+function updateSchedulePath(){
+
+    const path =
+        document.getElementById(
+            "schedulePath"
+        );
+
+
+    const month =
+        document.getElementById(
+            "monthSelector"
+        ).value;
+
+
+    const week =
+        document.getElementById(
+            "weekSelector"
+        ).value;
+
+
+    const day =
+        document.getElementById(
+            "daySelector"
+        ).value;
+
+
+    let html = "";
+
+
+    if(!month){
+
+        html = `
+
+            <span class="path-item">
+                Select Month
+            </span>
+
+        `;
+
+    }
+
+    else{
+
+        html += `
+
+            <span class="path-item">
+                ${escapeHTML(month)}
+            </span>
+
+        `;
+
+
+        if(week){
+
+            html += `
+
+                <span class="path-arrow">
+                    →
+                </span>
+
+                <span class="path-item">
+                    ${escapeHTML(week)}
+                </span>
+
+            `;
+
+        }
+
+
+        if(day){
+
+            html += `
+
+                <span class="path-arrow">
+                    →
+                </span>
+
+                <span class="path-item">
+                    ${escapeHTML(day)}
+                </span>
+
+            `;
+
+        }
+
+    }
+
+
+    path.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   LOAD EQUIPMENT DROPDOWN
+========================================================= */
+
+function loadEquipmentDropdown(){
+
+    const select =
+        document.getElementById(
+            "workEquipment"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select Equipment
+        </option>
+
+    `;
+
+
+    equipmentList.forEach(
+        function(machine){
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                machine;
+
+
+            option.textContent =
+                machine;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD TECHNICIANS
+========================================================= */
+
+function loadTechnicians(){
+
+    const select =
+        document.getElementById(
+            "workTechnician"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select Technician
+        </option>
+
+    `;
+
+
+    technicians.forEach(
+        function(technician){
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                technician;
+
+
+            option.textContent =
+                technician;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOCAL DATE
+========================================================= */
+
+function getLocalDate(){
+
+    const now =
+        new Date();
+
+
+    return (
+
+        now.getFullYear() +
+
+        "-" +
+
+        String(
+            now.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        ) +
+
+        "-" +
+
+        String(
+            now.getDate()
+        ).padStart(
+            2,
+            "0"
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   LOCAL TIME
+========================================================= */
+
+function getLocalTime(){
+
+    const now =
+        new Date();
+
+
+    return (
+
+        String(
+            now.getHours()
+        ).padStart(
+            2,
+            "0"
+        ) +
+
+        ":" +
+
+        String(
+            now.getMinutes()
+        ).padStart(
+            2,
+            "0"
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+
+function clearDailyForm(){
+
+    document
+        .getElementById(
+            "dailyWorkForm"
+        )
+        .reset();
+
+
+    document
+        .getElementById(
+            "workDate"
+        )
+        .value =
+        getLocalDate();
+
+
+    document
+        .getElementById(
+            "workTime"
+        )
+        .value =
+        getLocalTime();
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+    value
+){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   PRIORITY CLASS
+========================================================= */
+
+function getPriorityClass(
+    priority
+){
+
+    const value =
+        String(
+            priority || ""
+        ).toLowerCase();
+
+
+    if(value === "high"){
+
+        return "priority-high";
+
+    }
+
+
+    if(value === "medium"){
+
+        return "priority-medium";
+
+    }
+
+
+    if(value === "low"){
+
+        return "priority-low";
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   LOAD GOOGLE SHEET DATA
+   SAME GOOGLE SCRIPT
+========================================================= */
+
+async function loadGoogleSheetData(){
+
+    const status =
+        document.getElementById(
+            "googleSheetStatus"
+        );
+
+
+    const tbody =
+        document.getElementById(
+            "dailyRecordsBody"
+        );
+
+
+    status.className =
+        "status-box status-loading";
+
+
+    status.textContent =
+        "Loading Google Sheet records...";
+
+
+    try{
+
+        const url =
+            GOOGLE_SCRIPT_URL +
+
+            "?action=getDailyMaintenance" +
+
+            "&token=" +
+
+            encodeURIComponent(
+                GOOGLE_TOKEN
+            ) +
+
+            "&t=" +
+
+            Date.now();
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.success){
+
+            throw new Error(
+                data.error ||
+                "Google Sheet returned an error."
+            );
+
+        }
+
+
+        displayGoogleSheetRecords(
+            data.records || []
+        );
+
+
+        status.className =
+            "status-box status-success";
+
+
+        status.textContent =
+            "✓ Google Sheet connected — " +
+
+            (data.records || []).length +
+
+            " record(s) loaded.";
+
+    }
+
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        status.className =
+            "status-box status-error";
+
+
+        status.textContent =
+            "✗ Google Sheet connection failed: " +
+            error.message;
+
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#c62828;
+                    "
+                >
+
+                    Google Sheet records could not be loaded.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY GOOGLE SHEET RECORDS
+========================================================= */
+
+function displayGoogleSheetRecords(
+    records
+){
+
+    const tbody =
+        document.getElementById(
+            "dailyRecordsBody"
+        );
+
+
+    if(
+        !records ||
+        records.length === 0
+    ){
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                    "
+                >
+
+                    No maintenance records found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    records.forEach(
+        function(record,index){
+
+            const priorityClass =
+                getPriorityClass(
+                    record.priority
+                );
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.date
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.time
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.equipment
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.technician
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.workType
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="${priorityClass}"
+                        >
+
+                            ${escapeHTML(
+                                record.priority
+                            )}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.description
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    tbody.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   SAVE TO GOOGLE SHEETS
+   DO NOT CHANGE
+========================================================= */
+
+async function saveToGoogleSheets(
+    record
+){
+
+    const payload = {
+
+        token:
+            GOOGLE_TOKEN,
+
+        action:
+            "saveDailyMaintenance",
+
+        date:
+            record.date,
+
+        time:
+            record.time,
+
+        equipment:
+            record.equipment,
+
+        technician:
+            record.technician,
+
+        workType:
+            record.workType,
+
+        priority:
+            record.priority,
+
+        description:
+            record.description
+
+    };
+
+
+    try{
+
+        await fetch(
+
+            GOOGLE_SCRIPT_URL,
+
+            {
+
+                method:"POST",
+
+                mode:"no-cors",
+
+                headers:{
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+
+            }
+
+        );
+
+
+        /*
+         * Automatically load the new
+         * Google Sheet record.
+         */
+
+        setTimeout(
+            function(){
+
+                loadGoogleSheetData();
+
+            },
+            1200
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Google Sheet save error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DAILY FORM
+========================================================= */
+
+function setupDailyForm(){
+
+    const form =
+        document.getElementById(
+            "dailyWorkForm"
+        );
+
+
+    form.addEventListener(
+        "submit",
+        async function(event){
+
+            event.preventDefault();
+
+
+            const record = {
+
+                date:
+                    document.getElementById(
+                        "workDate"
+                    ).value,
+
+                time:
+                    document.getElementById(
+                        "workTime"
+                    ).value,
+
+                equipment:
+                    document.getElementById(
+                        "workEquipment"
+                    ).value,
+
+                technician:
+                    document.getElementById(
+                        "workTechnician"
+                    ).value,
+
+                workType:
+                    document.getElementById(
+                        "workType"
+                    ).value,
+
+                priority:
+                    document.getElementById(
+                        "workPriority"
+                    ).value,
+
+                description:
+                    document.getElementById(
+                        "workDescription"
+                    ).value.trim()
+
+            };
+
+
+            if(
+
+                !record.date ||
+                !record.time ||
+                !record.equipment ||
+                !record.technician ||
+                !record.workType ||
+                !record.priority ||
+                !record.description
+
+            ){
+
+                alert(
+                    "Please complete all fields."
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Keep local copy.
+             */
+
+            let localRecords =
+                JSON.parse(
+
+                    localStorage.getItem(
+                        "daily_maintenance_jobs"
+                    ) || "[]"
+
+                );
+
+
+            record.id =
+                Date.now();
+
+
+            localRecords.unshift(
+                record
+            );
+
+
+            localStorage.setItem(
+
+                "daily_maintenance_jobs",
+
+                JSON.stringify(
+                    localRecords
+                )
+
+            );
+
+
+            /*
+             * Send to Google Sheets.
+             */
+
+            await saveToGoogleSheets(
+                record
+            );
+
+
+            alert(
+                "Daily maintenance saved successfully."
+            );
+
+
+            clearDailyForm();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+function requestNotificationPermission(){
+
+    if(
+        !("Notification" in window)
+    ){
+
+        alert(
+            "This browser does not support notifications."
+        );
+
+        return;
+
+    }
+
+
+    Notification
+        .requestPermission()
+        .then(
+            function(permission){
+
+                if(
+                    permission === "granted"
+                ){
+
+                    new Notification(
+                        "MELBA Maintenance System",
+                        {
+                            body:
+                            "Maintenance notifications are enabled."
+                        }
+                    );
+
+                }
+
+                else{
+
+                    alert(
+                        "Notification permission was not granted."
+                    );
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadEquipmentTable();
+
+        loadEquipmentDropdown();
+
+        loadTechnicians();
+
+        displayAnnualPM();
+
+
+        document.getElementById(
+            "workDate"
+        ).value =
+            getLocalDate();
+
+
+        document.getElementById(
+            "workTime"
+        ).value =
+            getLocalTime();
+
+
+        setupDailyForm();
+
+
+        /*
+         * Automatically connect to Google Sheet.
+         * No refresh button is required.
+         */
+
+        loadGoogleSheetData();
+
+
+        /*
+         * Prepare schedule.
+         */
+
+        updateSchedulePath();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
