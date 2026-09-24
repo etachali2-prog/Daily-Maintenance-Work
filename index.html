@@ -3747,4 +3747,824 @@ function renderAdminEquipment(){
 
         }
     );
+
+}
+
+
+/* =========================================================
+   EDIT MACHINE
+========================================================= */
+
+function editMachine(index){
+
+    const machine =
+        equipmentData[index];
+
+
+    document.getElementById(
+        "machineEditIndex"
+    ).value =
+        index;
+
+
+    document.getElementById(
+        "machineName"
+    ).value =
+        machine.name;
+
+
+    document.getElementById(
+        "machineCategory"
+    ).value =
+        machine.category;
+
+
+    loadPriorityDropdown();
+
+
+    document.getElementById(
+        "machinePriority"
+    ).value =
+        machine.priority;
+
+
+    document.getElementById(
+        "machineGroup"
+    ).value =
+        machine.group;
+
+
+    document.getElementById(
+        "machineName"
+    ).focus();
+
+}
+
+
+/* =========================================================
+   CLEAR MACHINE FORM
+========================================================= */
+
+function clearMachineForm(){
+
+    document.getElementById(
+        "machineEditIndex"
+    ).value = "";
+
+
+    document.getElementById(
+        "machineName"
+    ).value = "";
+
+
+    document.getElementById(
+        "machineCategory"
+    ).value =
+        "Production";
+
+
+    loadPriorityDropdown();
+
+
+    document.getElementById(
+        "machinePriority"
+    ).value =
+        priorityList[0] || "";
+
+
+    document.getElementById(
+        "machineGroup"
+    ).value =
+        "Group 1";
+
+}
+
+
+/* =========================================================
+   SAVE MACHINE
+========================================================= */
+
+function saveMachine(){
+
+    const name =
+        document.getElementById(
+            "machineName"
+        ).value.trim();
+
+
+    const category =
+        document.getElementById(
+            "machineCategory"
+        ).value;
+
+
+    const priority =
+        document.getElementById(
+            "machinePriority"
+        ).value;
+
+
+    const group =
+        document.getElementById(
+            "machineGroup"
+        ).value;
+
+
+    if(!name){
+
+        alert(
+            "Please enter machine name."
+        );
+
+        return;
+
+    }
+
+
+    if(!priority){
+
+        alert(
+            "Please select priority."
+        );
+
+        return;
+
+    }
+
+
+    const editIndex =
+        document.getElementById(
+            "machineEditIndex"
+        ).value;
+
+
+    const machine = {
+
+        name:name,
+
+        category:category,
+
+        priority:priority,
+
+        group:group
+
+    };
+
+
+    if(
+        editIndex === ""
+    ){
+
+        const exists =
+            equipmentData.some(
+                item =>
+                    item.name
+                    .toLowerCase() ===
+                    name.toLowerCase()
+            );
+
+
+        if(exists){
+
+            alert(
+                "This machine already exists."
+            );
+
+            return;
+
+        }
+
+
+        equipmentData.push(
+            machine
+        );
+
+    }
+
+    else{
+
+        equipmentData[
+            Number(editIndex)
+        ] = machine;
+
+    }
+
+
+    saveEquipmentStorage();
+
+
+    loadEquipmentTable();
+
+    loadEquipmentDropdown();
+
+    loadAnnualPM();
+
+    loadWeeklyPM();
+
+
+    renderAdminEquipment();
+
+
+    clearMachineForm();
+
+
+    alert(
+        "Machine saved successfully."
+    );
+
+}
+
+
+/* =========================================================
+   DELETE MACHINE
+========================================================= */
+
+function deleteMachine(index){
+
+    const machine =
+        equipmentData[index];
+
+
+    const confirmed =
+        confirm(
+
+            "Are you sure you want to delete:\n\n" +
+            machine.name +
+            "?"
+
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    equipmentData.splice(
+        index,
+        1
+    );
+
+
+    saveEquipmentStorage();
+
+
+    loadEquipmentTable();
+
+    loadEquipmentDropdown();
+
+    loadAnnualPM();
+
+    loadWeeklyPM();
+
+    renderAdminEquipment();
+
+
+    clearMachineForm();
+
+
+    alert(
+        "Machine deleted successfully."
+    );
+
+}
+
+
+/* =========================================================
+   OPEN PRIORITY MANAGEMENT
+========================================================= */
+
+function openPriorityManagement(){
+
+    renderPriorityList();
+
+
+    document
+        .getElementById(
+            "priorityModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* =========================================================
+   RENDER PRIORITY LIST
+========================================================= */
+
+function renderPriorityList(){
+
+    const container =
+        document.getElementById(
+            "priorityListDisplay"
+        );
+
+
+    container.innerHTML = "";
+
+
+    priorityList.forEach(
+        (priority,index) => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.style.display =
+                "flex";
+
+            div.style.gap =
+                "8px";
+
+            div.style.alignItems =
+                "center";
+
+            div.style.marginBottom =
+                "8px";
+
+
+            div.innerHTML = `
+
+                <input
+                    type="text"
+                    value="${escapeAttribute(priority)}"
+                    id="priorityInput${index}"
+                >
+
+                <button
+                    class="small-btn btn-success"
+                    onclick="updatePriority(${index})"
+                >
+                    Save
+                </button>
+
+                <button
+                    class="small-btn btn-danger"
+                    onclick="deletePriority(${index})"
+                >
+                    Delete
+                </button>
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ADD PRIORITY
+========================================================= */
+
+function addPriority(){
+
+    const input =
+        document.getElementById(
+            "newPriority"
+        );
+
+
+    const value =
+        input.value.trim();
+
+
+    if(!value){
+
+        alert(
+            "Enter a priority name."
+        );
+
+        return;
+
+    }
+
+
+    const exists =
+        priorityList.some(
+            priority =>
+                priority.toLowerCase() ===
+                value.toLowerCase()
+        );
+
+
+    if(exists){
+
+        alert(
+            "This priority already exists."
+        );
+
+        return;
+
+    }
+
+
+    priorityList.push(
+        value
+    );
+
+
+    savePriorityStorage();
+
+
+    input.value = "";
+
+
+    renderPriorityList();
+
+
+    loadPriorityDropdown();
+
+
+    alert(
+        "Priority added successfully."
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE PRIORITY
+========================================================= */
+
+function updatePriority(index){
+
+    const input =
+        document.getElementById(
+            "priorityInput" + index
+        );
+
+
+    const newValue =
+        input.value.trim();
+
+
+    if(!newValue){
+
+        alert(
+            "Priority cannot be empty."
+        );
+
+        return;
+
+    }
+
+
+    const oldValue =
+        priorityList[index];
+
+
+    const duplicate =
+        priorityList.some(
+            (priority,i) =>
+                i !== index &&
+                priority.toLowerCase() ===
+                newValue.toLowerCase()
+        );
+
+
+    if(duplicate){
+
+        alert(
+            "This priority already exists."
+        );
+
+        return;
+
+    }
+
+
+    priorityList[index] =
+        newValue;
+
+
+    savePriorityStorage();
+
+
+    /*
+       Also update existing machines
+       that used the old priority.
+    */
+
+    equipmentData.forEach(
+        machine => {
+
+            if(
+                machine.priority ===
+                oldValue
+            ){
+
+                machine.priority =
+                    newValue;
+
+            }
+
+        }
+    );
+
+
+    saveEquipmentStorage();
+
+
+    loadPriorityDropdown();
+
+    loadEquipmentTable();
+
+    loadEquipmentDropdown();
+
+    loadAnnualPM();
+
+    loadWeeklyPM();
+
+    renderAdminEquipment();
+
+    renderPriorityList();
+
+
+    alert(
+        "Priority updated successfully."
+    );
+
+}
+
+
+/* =========================================================
+   DELETE PRIORITY
+========================================================= */
+
+function deletePriority(index){
+
+    if(
+        priorityList.length <= 1
+    ){
+
+        alert(
+            "At least one priority must remain."
+        );
+
+        return;
+
+    }
+
+
+    const priority =
+        priorityList[index];
+
+
+    const confirmed =
+        confirm(
+
+            "Delete priority:\n\n" +
+            priority +
+            "?"
+
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    priorityList.splice(
+        index,
+        1
+    );
+
+
+    savePriorityStorage();
+
+
+    loadPriorityDropdown();
+
+
+    renderPriorityList();
+
+
+    alert(
+        "Priority deleted successfully."
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================================================= */
+
+window.addEventListener(
+    "click",
+    function(event){
+
+        const passwordModal =
+            document.getElementById(
+                "passwordModal"
+            );
+
+        const equipmentModal =
+            document.getElementById(
+                "equipmentModal"
+            );
+
+        const priorityModal =
+            document.getElementById(
+                "priorityModal"
+            );
+
+
+        if(
+            event.target ===
+            passwordModal
+        ){
+
+            closeModal(
+                "passwordModal"
+            );
+
+        }
+
+
+        if(
+            event.target ===
+            equipmentModal
+        ){
+
+            closeModal(
+                "equipmentModal"
+            );
+
+        }
+
+
+        if(
+            event.target ===
+            priorityModal
+        ){
+
+            closeModal(
+                "priorityModal"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+function requestNotificationPermission(){
+
+    if(
+        !("Notification" in window)
+    ){
+
+        document.getElementById(
+            "notificationStatus"
+        ).textContent =
+            "This browser does not support notifications.";
+
+        return;
+
+    }
+
+
+    Notification.requestPermission()
+    .then(
+        permission => {
+
+            const status =
+                document.getElementById(
+                    "notificationStatus"
+                );
+
+
+            if(
+                permission ===
+                "granted"
+            ){
+
+                status.textContent =
+                    "Notifications enabled successfully.";
+
+                status.className =
+                    "status success-status";
+
+            }
+
+            else{
+
+                status.textContent =
+                    "Notification permission was not granted.";
+
+                status.className =
+                    "status error-status";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(value){
+
+    return escapeHTML(
+        value
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE SYSTEM
+========================================================= */
+
+function initializeSystem(){
+
+    loadEquipmentTable();
+
+    loadEquipmentDropdown();
+
+    loadTechnicianDropdown();
+
+    loadPriorityDropdown();
+
+    loadAnnualPM();
+
+    loadWeeklyPM();
+
+    displayDailyRecords();
+
+    setCurrentDateTime();
+
+}
+
+
+initializeSystem();
+
+</script>
+
+</body>
+</html>
 ```
