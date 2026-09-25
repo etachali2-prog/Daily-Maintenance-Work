@@ -1,557 +1,81 @@
-```html
-<!DOCTYPE html>
+how i add to my maintenace schedule code below<!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MELBA - Annual Maintenance Plan</title>
+    <title>Annual Maintenance Plan</title>
 
-<style>
+    <style>
+        body {
+            background-color: rgb(226, 216, 227);
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
 
-/* ==============================
-   GENERAL SETTINGS
-============================== */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+        }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background:
-        linear-gradient(rgba(10, 25, 45, 0.65), rgba(10, 25, 45, 0.75)),
-        url("machine-background.png") center/cover fixed no-repeat;
-    padding: 25px;
-    color: #222;
-}
+        th {
+            background-color: #d9d9d9;
+        }
 
-/* ==============================
-   MAIN CONTAINER
-============================== */
+        .main-header {
+            background-color: #b7dee8;
+        }
 
-.container {
-    max-width: 1400px;
-    margin: auto;
-    background: rgba(255, 255, 255, 0.96);
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
+        .activity {
+            text-align: left;
+        }
 
-/* ==============================
-   HEADER
-============================== */
+        .month {
+            width: 55px;
+            min-width: 55px;
+        }
 
-.header {
-    text-align: center;
-    border-bottom: 4px solid #087f8c;
-    padding-bottom: 20px;
-    margin-bottom: 25px;
-}
+        .schedule {
+            background-color: #eeeeee;
+        }
 
-.header h1 {
-    color: #064b65;
-    font-size: 28px;
-    margin-bottom: 10px;
-}
+        .blue {
+            background-color: blue;
+            color: white;
+        }
 
-.header h2 {
-    color: #087f8c;
-    font-size: 22px;
-    margin-bottom: 8px;
-}
+        .aqua {
+            background-color: aqua;
+        }
 
-.header p {
-    font-size: 16px;
-    color: #444;
-}
+        .violet {
+            background-color: blueviolet;
+        }
 
-/* ==============================
-   ACTION BUTTONS
-============================== */
+        a {
+            color: blue;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-}
-
-.btn {
-    display: inline-block;
-    text-decoration: none;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    text-align: center;
-}
-
-.back-button {
-    background: #555;
-    color: white;
-}
-
-.back-button:hover {
-    background: #333;
-}
-
-.pm-button {
-    background: #087f8c;
-    color: white;
-}
-
-.pm-button:hover {
-    background: #055d67;
-}
-
-/* ==============================
-   SECTION TITLE
-============================== */
-
-.section-title {
-    text-align: center;
-    color: #064b65;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-/* ==============================
-   TABLE
-============================== */
-
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    min-width: 900px;
-    border-collapse: collapse;
-    margin-bottom: 25px;
-}
-
-thead {
-    background: #064b65;
-    color: white;
-}
-
-th, td {
-    border: 1px solid #cbd5e1;
-    padding: 12px 10px;
-    text-align: center;
-    font-size: 14px;
-}
-
-th {
-    font-weight: bold;
-}
-
-tbody tr:nth-child(even) {
-    background: #edf6f8;
-}
-
-tbody tr:nth-child(odd) {
-    background: #ffffff;
-}
-
-tbody tr:hover {
-    background: #d5eef1;
-}
-
-/* ==============================
-   STATUS COLORS
-============================== */
-
-.status {
-    font-weight: bold;
-    color: #087f8c;
-}
-
-/* ==============================
-   FOOTER
-============================== */
-
-.footer {
-    text-align: center;
-    padding-top: 15px;
-    border-top: 1px solid #ccc;
-    color: #555;
-    font-size: 13px;
-}
-
-/* ==============================
-   RESPONSIVE DESIGN
-============================== */
-
-@media (max-width: 768px) {
-
-    body {
-        padding: 10px;
-    }
-
-    .container {
-        padding: 15px;
-    }
-
-    .header h1 {
-        font-size: 21px;
-    }
-
-    .header h2 {
-        font-size: 18px;
-    }
-
-    .section-title {
-        font-size: 20px;
-    }
-
-    .button-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .btn {
-        width: 100%;
-    }
-}
-
-</style>
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
-
-    <!-- COMPANY HEADER -->
-
-    <div class="header">
-
-        <h1>
-            MELBA PRINTING PUBLISHING &amp; PACKAGING S.C.
-        </h1>
-
-        <h2>
-            TECHNICAL DEPARTMENT
-        </h2>
-
-        <p>
-            Annual Maintenance Management &amp; Preventive Maintenance Plan
-        </p>
-
-    </div>
-
-    <!-- NAVIGATION BUTTONS -->
-
-    <div class="button-container">
-
-        <a href="javascript:history.back()" class="btn back-button">
-            &#8592; Back
-        </a>
-
-        <a href="PM-Schedule.html" class="btn pm-button">
-            PM Schedule &#8594;
-        </a>
-
-    </div>
-
-    <!-- MAIN TITLE -->
-
-    <h2 class="section-title">
-        ANNUAL PREVENTIVE MAINTENANCE PLAN
-    </h2>
-
-    <p style="text-align:center; margin-bottom:20px; color:#555;">
-        Annual Maintenance Year: July – June
-    </p>
-
-    <!-- MAINTENANCE TABLE -->
-
-    <div class="table-wrapper">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Equipment Name</th>
-                    <th>Category</th>
-                    <th>Priority</th>
-                    <th>July</th>
-                    <th>August</th>
-                    <th>September</th>
-                    <th>October</th>
-                    <th>November</th>
-                    <th>December</th>
-                    <th>January</th>
-                    <th>February</th>
-                    <th>March</th>
-                    <th>April</th>
-                    <th>May</th>
-                    <th>June</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>1</td>
-                    <td>Thermal CTP</td>
-                    <td>Production</td>
-                    <td>A</td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>2</td>
-                    <td>Coldset Web Offset TBO1</td>
-                    <td>Production</td>
-                    <td>A</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                </tr>
-
-                <tr>
-                    <td>3</td>
-                    <td>Coldset Web Offset TBO2</td>
-                    <td>Production</td>
-                    <td>A</td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td>Heatset Web Offset TBO03</td>
-                    <td>Production</td>
-                    <td>A</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
-                    <td>Five-Unit Sheet Fed + Coater + Dryer</td>
-                    <td>Production</td>
-                    <td>A</td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>6</td>
-                    <td>Four-Unit A1 Sheet Fed</td>
-                    <td>Production</td>
-                    <td>A</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                </tr>
-
-                <tr>
-                    <td>7</td>
-                    <td>Two-Unit B1 Sheet Fed</td>
-                    <td>Production</td>
-                    <td>B</td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>8</td>
-                    <td>A3 Perforating / Numbering Machine</td>
-                    <td>Production</td>
-                    <td>B</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                </tr>
-
-                <tr>
-                    <td>9</td>
-                    <td>Automatic UV Laminating Machine</td>
-                    <td>Production</td>
-                    <td>B</td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>10</td>
-                    <td>Online / Offline Perfect Binding Machine</td>
-                    <td>Production</td>
-                    <td>A</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                </tr>
-
-                <tr>
-                    <td>11</td>
-                    <td>Generator</td>
-                    <td>Utility</td>
-                    <td>A</td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>12</td>
-                    <td>Air Compressor</td>
-                    <td>Utility</td>
-                    <td>A</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                    <td></td>
-                    <td class="status">PM</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-        <p>
-            MELBA PRINTING PUBLISHING &amp; PACKAGING S.C.
-        </p>
-        <p>
-            Technical Department | Annual Preventive Maintenance Plan
-        </p>
-    </div>
-
-</div>
+                <a href="https://etachali2-prog.github.io/Daily-Maintenance-Work/">PM Schedule</a>
+            
 
 </body>
 </html>
-```
