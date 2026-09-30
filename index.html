@@ -611,6 +611,34 @@ footer strong{
 
 }
 
+
+
+/* =========================================================
+   PRINT / SAVE AS PDF
+========================================================= */
+.print-btn{
+    background:#16803c;
+    color:#fff;
+    border:0;
+    border-radius:7px;
+    padding:10px 15px;
+    font-weight:700;
+    margin-left:8px;
+}
+@media print{
+    @page{size:A4 landscape;margin:12mm;}
+    body{background:#fff!important;color:#111!important;font-size:10pt;}
+    header{background:#fff!important;color:#111!important;box-shadow:none!important;padding:8px 0;}
+    nav,.print-btn,.back-btn,button,.no-print,.system-status{display:none!important;}
+    .section:not(.active){display:none!important;}
+    .container{width:100%!important;max-width:none!important;margin:0!important;}
+    .section,.card,.table-container{box-shadow:none!important;break-inside:avoid;}
+    table{width:100%!important;border-collapse:collapse!important;font-size:9pt;}
+    th,td{border:1px solid #777!important;padding:5px!important;color:#111!important;}
+    input,select,textarea{border:0!important;background:transparent!important;color:#111!important;}
+    a{color:#111!important;text-decoration:none!important;}
+}
+
 </style>
 </head>
 
@@ -642,6 +670,8 @@ Electrical & Mechanical Technical Department
 
 
 <div class="header-right">
+
+<button type="button" class="print-btn" onclick="printCurrentSection()" title="Print or save the current section as PDF">🖨 Print / Save PDF</button>
 
 
 <!-- BACK BUTTON -->
@@ -861,6 +891,10 @@ Select a month, group and machine to view the annual PM assignment.
 <h3 class="card-title">
 Annual PM Selection
 </h3>
+
+<button type="button" class="btn" onclick="exportAnnualPMExcel()" style="margin:12px 0;background:#16803c;color:white;padding:10px 16px;border:0;border-radius:6px;cursor:pointer;">
+📊 Export Annual Plan to Excel
+</button>
 
 
 <div class="selection-grid">
@@ -1296,14 +1330,19 @@ Daily Maintenance Entry
 <div class="form-group">
 
 <label>
-Date (Gregorian input; Ethiopian date shown in system clock)
+Date (Ethiopian Calendar)
 </label>
 
 
 <input
 type="date"
 id="workDate"
-required>
+required
+onchange="updateEthiopianDateDisplay()">
+
+<div id="ethiopianDateDisplay" style="margin-top:7px;color:#0b7285;font-weight:bold;font-size:13px;">
+    Ethiopian date will appear here.
+</div>
 
 </div>
 
@@ -2142,6 +2181,74 @@ function getGroupMachines(group){
 
     return [];
 
+}
+
+
+
+
+/* =========================================================
+   EXPORT ANNUAL PM PLAN TO EXCEL-COMPATIBLE CSV
+========================================================= */
+function exportAnnualPMExcel(){
+    const months = [
+        ["July", "Hamle"], ["August", "Nehase"],
+        ["September", "Meskerem"], ["October", "Tikimt"],
+        ["November", "Hidar"], ["December", "Tahsas"],
+        ["January", "Tir"], ["February", "Yekatit"],
+        ["March", "Megabit"], ["April", "Miazia"],
+        ["May", "Ginbot"], ["June", "Sene"]
+    ];
+
+    const rows = [["No.", "Ethiopian Month", "English Month", "PM Group", "Machine / Equipment", "Planned PM Frequency"]];
+    let n = 1;
+
+    months.forEach(([english, ethiopian]) => {
+        const group = monthGroup[english] || "";
+        getGroupMachines(group).forEach(machine => {
+            rows.push([n++, ethiopian, english, group, machine, "Preventive Maintenance"]);
+        });
+    });
+
+    const escapeExcelHTML = value => String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    const tableRows = rows.map((row, index) => {
+        const cells = row.map(value => `<td>${escapeExcelHTML(value)}</td>`).join("");
+        return `<tr${index === 0 ? ' class="heading"' : ""}>${cells}</tr>`;
+    }).join("");
+
+    const excelHTML = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+    body { font-family: Arial, sans-serif; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #777; padding: 7px; text-align: left; }
+    .heading { background: #164e78; color: #ffffff; font-weight: bold; }
+</style>
+</head>
+<body>
+<h2>MELBA PRINTING PUBLISHING &amp; PACKAGING SC.</h2>
+<h3>Annual Preventive Maintenance Plan (Ethiopian Calendar)</h3>
+<table>${tableRows}</table>
+</body>
+</html>`;
+
+    const blob = new Blob(["\\uFEFF", excelHTML], {
+        type: "application/vnd.ms-excel;charset=utf-8;"
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "MELBA_Ethiopian_Annual_PM_Plan.xls";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 
@@ -3085,6 +3192,20 @@ function formatEthiopianDate(isoDate){
    DATE AND TIME
 ========================================================= */
 
+function updateEthiopianDateDisplay(){
+    const input = document.getElementById("workDate");
+    const output = document.getElementById("ethiopianDateDisplay");
+    if(!input || !output) return;
+    output.textContent = input.value
+        ? "Ethiopian date: " + formatEthiopianDate(input.value)
+        : "Ethiopian date will appear here.";
+}
+
+
+/* =========================================================
+   DATE AND TIME
+========================================================= */
+
 function setCurrentDateTime(){
 
     const now =
@@ -3115,6 +3236,7 @@ function setCurrentDateTime(){
     ).value =
         date;
 
+    updateEthiopianDateDisplay();
 
     document.getElementById(
         "workTime"
@@ -3739,6 +3861,14 @@ function escapeHTML(value){
             "&#039;"
         );
 
+}
+
+
+/* =========================================================
+   PRINT CURRENT SECTION / SAVE AS PDF
+========================================================= */
+function printCurrentSection(){
+    window.print();
 }
 
 
